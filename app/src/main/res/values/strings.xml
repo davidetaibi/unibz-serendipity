@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Serendipity</string>
+
+    <string name="franziskaner">Franziskaner</string>
+    <string name="lido">Lido</string>
+    <string name="museion">Museion</string>
+    <string name="obstplatz">Obstplatz</string>
+    <string name="salewa">Salewa</string>
+    <string name="skatepark">Skatepark</string>
+</resources>
