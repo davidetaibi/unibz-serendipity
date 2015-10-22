@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void play(View view) {
-        view.setBackgroundColor(Color.RED);
         switch (view.getId()) {
             case R.id.franziskaner: Log.d("SerendipityPlayer", "Franziskaner");
                 startStop(franziskanerPlayer);
