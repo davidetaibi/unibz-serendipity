@@ -1,16 +1,19 @@
 package com.unibz.serendipity;
 
 import android.graphics.Color;
+import android.location.Location;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
+    private GPSTracker gpsTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mediaPlayer = null;
+        gpsTracker = new GPSTracker(this);
     }
 
     @Override
@@ -48,6 +52,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.skatepark: Log.d("SerendipityPlayer", "Skatepark");
                 playSong(R.raw.skatepark);
                 break;
+            case R.id.location:
+                if(gpsTracker.canGetLocation()) {
+                    Location currentLoc=  gpsTracker.getLocation();
+                    Toast.makeText(getApplicationContext(), "Latitude: "+currentLoc.getLatitude()+" Longitude: "+currentLoc.getLongitude(), Toast.LENGTH_LONG).show();
+                }
+                break;
         }
     }
 
@@ -59,4 +69,4 @@ public class MainActivity extends AppCompatActivity {
         mediaPlayer = MediaPlayer.create(this, songID);
         mediaPlayer.start();
     }
-}
+ }

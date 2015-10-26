@@ -7,4 +7,5 @@
     <string name="obstplatz">Obstplatz</string>
     <string name="salewa">Salewa</string>
     <string name="skatepark">Skatepark</string>
+    <string name="location">track Location</string>
 </resources>
