@@ -10,67 +10,53 @@ import android.view.View;
 import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity {
-    private MediaPlayer franziskanerPlayer;
-    private MediaPlayer lidoPlayer;
-    private MediaPlayer museionPlayer;
-    private MediaPlayer obstplatzPlayer;
-    private MediaPlayer salewaPlayer;
-    private MediaPlayer skateparkPlayer;
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        franziskanerPlayer = MediaPlayer.create(this, R.raw.franziskaner);
-        lidoPlayer = MediaPlayer.create(this, R.raw.lido);
-        museionPlayer = MediaPlayer.create(this, R.raw.museion);
-        obstplatzPlayer = MediaPlayer.create(this, R.raw.obstplatz);
-        salewaPlayer = MediaPlayer.create(this, R.raw.salewa);
-        skateparkPlayer = MediaPlayer.create(this, R.raw.skatepark);
+        mediaPlayer = null;
     }
 
     @Override
     protected void onDestroy() {
+        mediaPlayer.release();
+        mediaPlayer = null;
+
         super.onDestroy();
-        franziskanerPlayer.release();
-        lidoPlayer.release();
-        museionPlayer.release();
-        obstplatzPlayer.release();
-        salewaPlayer.release();
-        skateparkPlayer.release();
     }
 
     public void play(View view) {
         switch (view.getId()) {
             case R.id.franziskaner: Log.d("SerendipityPlayer", "Franziskaner");
-                startStop(franziskanerPlayer);
+                playSong(R.raw.franziskaner);
                 break;
             case R.id.lido: Log.d("SerendipityPlayer", "Lido");
-                startStop(lidoPlayer);
+                playSong(R.raw.lido);
                 break;
             case R.id.museion: Log.d("SerendipityPlayer", "Museion");
-                startStop(museionPlayer);
+                playSong(R.raw.museion);
                 break;
             case R.id.obstplatz: Log.d("SerendipityPlayer", "Obstplatz");
-                startStop(obstplatzPlayer);
+                playSong(R.raw.obstplatz);
                 break;
             case R.id.salewa: Log.d("SerendipityPlayer", "Salewa");
-                startStop(salewaPlayer);
+                playSong(R.raw.salewa);
                 break;
             case R.id.skatepark: Log.d("SerendipityPlayer", "Skatepark");
-                startStop(skateparkPlayer);
+                playSong(R.raw.skatepark);
                 break;
         }
     }
 
-    private void startStop(MediaPlayer mediaPlayer) {
-        if (mediaPlayer.isPlaying()) {
+    private void playSong(int songID) {
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
-            Log.d("SerendipityPlayer", "Stoped");
-        } else {
-            mediaPlayer.start();
-            Log.d("SerendipityPlayer", "Started");
+            mediaPlayer.release();
         }
+        mediaPlayer = MediaPlayer.create(this, songID);
+        mediaPlayer.start();
     }
 }
