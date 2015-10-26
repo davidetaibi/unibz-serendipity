@@ -17,9 +17,10 @@ import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
-public class GPSTracker extends Service implements LocationListener {
+public class GPSTracker extends Service {
 
     private final Context mContext;
+    private LocationListener locationListener;
 
     // flag for GPS status
     boolean isGPSEnabled = false;
@@ -43,8 +44,9 @@ public class GPSTracker extends Service implements LocationListener {
     // Declaring a Location Manager
     protected LocationManager locationManager;
 
-    public GPSTracker(Context context) {
+    public GPSTracker(Context context, LocationListener newListener) {
         this.mContext = context;
+        this.locationListener = newListener;
         getLocation();
     }
 
@@ -70,7 +72,7 @@ public class GPSTracker extends Service implements LocationListener {
                     locationManager.requestLocationUpdates(
                             LocationManager.NETWORK_PROVIDER,
                             MIN_TIME_BW_UPDATES,
-                            MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+                            MIN_DISTANCE_CHANGE_FOR_UPDATES, locationListener);
 
                     if (locationManager != null) {
                         location = locationManager
@@ -87,7 +89,7 @@ public class GPSTracker extends Service implements LocationListener {
                         locationManager.requestLocationUpdates(
                                 LocationManager.GPS_PROVIDER,
                                 MIN_TIME_BW_UPDATES,
-                                MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+                                MIN_DISTANCE_CHANGE_FOR_UPDATES, locationListener);
                         Log.d("GPS Enabled", "GPS Enabled");
                         if (locationManager != null) {
                             location = locationManager
@@ -114,7 +116,7 @@ public class GPSTracker extends Service implements LocationListener {
      * */
     public void stopUsingGPS() throws SecurityException{
         if(locationManager != null){
-            locationManager.removeUpdates(GPSTracker.this);
+            //locationManager.removeUpdates(GPSTracker.this);
         }
     }
 
@@ -182,44 +184,14 @@ public class GPSTracker extends Service implements LocationListener {
         alertDialog.show();
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
-        // Toast.makeText(getApplicationContext(), "location changed", Toast.LENGTH_LONG).show(); falscher context!!
-        Log.d("LOC", "changed");
-    }
 
-    @Override
-    public void onProviderDisabled(String provider) {
-        //Toast.makeText(getApplicationContext(), "provider disabled", Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-        // Toast.makeText(getApplicationContext(), "provider enabled", Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-        //  Toast.makeText(getApplicationContext(), "status changed", Toast.LENGTH_LONG).show();
-    }
 
     @Override
     public IBinder onBind(Intent arg0) {
         return null;
     }
 
-    public double distFrom(double lat1, double lng1, double lat2, double lng2) {
-        double earthRadius = 6371000; //meters
-        double dLat = Math.toRadians(lat2 - lat1);
-        double dLng = Math.toRadians(lng2 - lng1);
-        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
-                        Math.sin(dLng / 2) * Math.sin(dLng / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        double dist = (double) (earthRadius * c);
 
-        return dist;
-    }
 
 
 }

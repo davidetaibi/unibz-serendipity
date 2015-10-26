@@ -1,27 +1,47 @@
 package com.unibz.serendipity;
 
-import android.graphics.Color;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.location.Location;
+import android.location.LocationListener;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+import android.support.v7.app.NotificationCompat;
 
-import java.util.LinkedList;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity implements LocationListener {
     private MediaPlayer mediaPlayer;
     private GPSTracker gpsTracker;
-
+    private ArrayList<Sound> soundList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         mediaPlayer = null;
-        gpsTracker = new GPSTracker(this);
+        initSounds();
+        initGPSTracking();
+    }
+    private void initSounds(){
+        soundList = new ArrayList<Sound>();
+        soundList.add(new Sound(getString(R.string.franziskaner),R.raw.franziskaner,46.500554, 11.353641));
+        soundList.add(new Sound(getString(R.string.lido), R.raw.lido, 46.490593, 11.344708));
+        soundList.add(new Sound(getString(R.string.museion), R.raw.museion, 46.497257, 11.348721));
+        soundList.add(new Sound(getString(R.string.obstplatz),R.raw.obstplatz,46.499600, 11.352475));
+        soundList.add(new Sound(getString(R.string.salewa), R.raw.salewa, 46.470532, 11.314391));
+        soundList.add(new Sound(getString(R.string.skatepark), R.raw.skatepark, 46.505322, 11.349811));
+
+    }
+
+    private void initGPSTracking(){
+        gpsTracker = new GPSTracker(this,this);
+
     }
 
     @Override
@@ -68,5 +88,55 @@ public class MainActivity extends AppCompatActivity {
         }
         mediaPlayer = MediaPlayer.create(this, songID);
         mediaPlayer.start();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+         Log.d("currLoc", "lat: " + location.getLatitude() + "  long: " + location.getLongitude());
+        double distance=0.0;
+        for (int i = 0;i<soundList.size();i++) {
+             distance  = soundList.get(i).getDistance(location.getLatitude(),location.getLongitude());
+            if(distance<200) { //200 only for testing
+
+                notifyUser("Serendipity","You're "+(int)distance+" m away from "+soundList.get(i).getName()+".");
+            }
+
+            //Log.d("distanceFrom", ""+soundList.get(i).getName()+": "+distance);
+
+        }
+
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        //Toast.makeText(getApplicationContext(), "provider disabled", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+        // Toast.makeText(getApplicationContext(), "provider enabled", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        //  Toast.makeText(getApplicationContext(), "status changed", Toast.LENGTH_LONG).show();
+    }
+
+    private void notifyUser(String title, String contentText) {
+        NotificationCompat.Builder mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.notificationicon)
+                .setContentTitle(title)
+                .setContentText(contentText);
+
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+// Sets an ID for the notification, so it can be updated
+        int notifyID = 1;
+
+        mNotificationManager.notify(
+                notifyID,
+                mBuilder.build());
+
     }
  }
