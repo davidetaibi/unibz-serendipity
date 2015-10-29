@@ -5,29 +5,41 @@ import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.media.MediaPlayer;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
-import android.support.v7.app.NotificationCompat;
-
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
+    private final String LOG_TAG = "MAIN_ACTIVITY";
+
+    private final int DISTANCE_TO_SOUND = 10;
+    private final int DISTANCE_TO_NOTIFY = 200;
+
     private MediaPlayer mediaPlayer;
     private GPSTracker gpsTracker;
     private ArrayList<Sound> soundList;
+    private Sound currentSound;
+    private ImageButton playButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         mediaPlayer = null;
+        currentSound = null;
+        playButton = (ImageButton) findViewById(R.id.play);
+        
         initSounds();
         initGPSTracking();
     }
+    
     private void initSounds(){
         soundList = new ArrayList<Sound>();
         soundList.add(new Sound(getString(R.string.franziskaner),R.raw.franziskaner,46.500554, 11.353641));
@@ -37,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         soundList.add(new Sound(getString(R.string.salewa), R.raw.salewa, 46.470532, 11.314391));
         soundList.add(new Sound(getString(R.string.skatepark), R.raw.skatepark, 46.505322, 11.349811));
 
+        //lat: 46.76396308  long: 11.68467848
+        //soundList.add(new Sound("MyHome", R.raw.franziskaner, 46.76396308, 11.68467848));
     }
 
     private void initGPSTracking(){
@@ -46,66 +60,82 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     @Override
     protected void onDestroy() {
-        mediaPlayer.release();
-        mediaPlayer = null;
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
 
         super.onDestroy();
     }
 
-    public void play(View view) {
+    public void clicked(View view) {
         switch (view.getId()) {
-            case R.id.franziskaner: Log.d("SerendipityPlayer", "Franziskaner");
-                playSong(R.raw.franziskaner);
-                break;
-            case R.id.lido: Log.d("SerendipityPlayer", "Lido");
-                playSong(R.raw.lido);
-                break;
-            case R.id.museion: Log.d("SerendipityPlayer", "Museion");
-                playSong(R.raw.museion);
-                break;
-            case R.id.obstplatz: Log.d("SerendipityPlayer", "Obstplatz");
-                playSong(R.raw.obstplatz);
-                break;
-            case R.id.salewa: Log.d("SerendipityPlayer", "Salewa");
-                playSong(R.raw.salewa);
-                break;
-            case R.id.skatepark: Log.d("SerendipityPlayer", "Skatepark");
-                playSong(R.raw.skatepark);
-                break;
             case R.id.location:
                 if(gpsTracker.canGetLocation()) {
-                    Location currentLoc=  gpsTracker.getLocation();
-                    Toast.makeText(getApplicationContext(), "Latitude: "+currentLoc.getLatitude()+" Longitude: "+currentLoc.getLongitude(), Toast.LENGTH_LONG).show();
+                    try {
+                        Location currentLoc = gpsTracker.getLocation();
+                        if (currentLoc != null) {
+                            Toast.makeText(this, "Latitude: " + currentLoc.getLatitude() + " Longitude: " + currentLoc.getLongitude(), Toast.LENGTH_LONG).show();
+                            onLocationChanged(currentLoc);
+                        }
+                    } catch (SecurityException e) {
+                        Log.d(LOG_TAG, "SecurityException on GPSTracker.getLocation");
+                    }
                 }
+                break;
+            case R.id.play:
+                playSound();
                 break;
         }
     }
 
-    private void playSong(int songID) {
-        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+    private void playSound() {
+        if (mediaPlayer != null && !mediaPlayer.isPlaying()) {
+            mediaPlayer.start();
+        }
+    }
+
+    private void prepareSound() {
+        if (mediaPlayer != null) {
             mediaPlayer.stop();
             mediaPlayer.release();
+            mediaPlayer = null;
         }
-        mediaPlayer = MediaPlayer.create(this, songID);
-        mediaPlayer.start();
+        if (currentSound != null) {
+            mediaPlayer = MediaPlayer.create(this, currentSound.getSrcID());
+            playButton.setVisibility(View.VISIBLE);
+        } else {
+            playButton.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void onLocationChanged(Location location) {
-         Log.d("currLoc", "lat: " + location.getLatitude() + "  long: " + location.getLongitude());
-        double distance=0.0;
-        for (int i = 0;i<soundList.size();i++) {
-             distance  = soundList.get(i).getDistance(location.getLatitude(),location.getLongitude());
-            if(distance<200) { //200 only for testing
+        Toast.makeText(this, "LocationChanged", Toast.LENGTH_LONG).show();
+        Log.d(LOG_TAG, "Location changed: lat: " + location.getLatitude() + "  long: " + location.getLongitude());
 
-                notifyUser("Serendipity","You're "+(int)distance+" m away from "+soundList.get(i).getName()+".");
+        double distance = 0.0;
+        for (int i = 0; i < soundList.size(); i++) {
+            Sound sound = soundList.get(i);
+            distance  = sound.getDistance(location.getLatitude(), location.getLongitude());
+
+            if (distance <= DISTANCE_TO_SOUND) {
+                Log.d(LOG_TAG, "Distance to " + soundList.get(i).getName() + ": " + distance);
+                if (currentSound != sound) {
+                    currentSound = sound;
+                    prepareSound();
+                }
+            } else {
+                if (currentSound == sound) {
+                    currentSound = null;
+                    prepareSound();
+                }
             }
-
-            //Log.d("distanceFrom", ""+soundList.get(i).getName()+": "+distance);
-
+            if(distance > DISTANCE_TO_SOUND && distance <= DISTANCE_TO_NOTIFY) {
+                Log.d(LOG_TAG, "Distance to " + soundList.get(i).getName() + ": " + distance);
+                notifyUser("Serendipity", "You're " + (int)distance + " m away from " + soundList.get(i).getName() + ".");
+            }
         }
-
-
     }
 
     @Override
@@ -139,4 +169,4 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 mBuilder.build());
 
     }
- }
+}

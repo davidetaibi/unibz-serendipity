@@ -22,6 +22,10 @@ public class Sound {
         return this.name;
     }
 
+    public int getSrcID() {
+        return srcID;
+    }
+
     public double getDistance(double currLat, double currLon) {
 
         return distFrom(this.latitude,this.longitude,currLat,currLon);
