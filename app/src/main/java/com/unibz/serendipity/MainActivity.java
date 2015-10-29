@@ -1,11 +1,15 @@
 package com.unibz.serendipity;
 
+import android.Manifest;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
@@ -18,6 +22,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements LocationListener {
     private final String LOG_TAG = "MAIN_ACTIVITY";
 
+    private final int PERMISSIONS_REQUEST_FINE_LOCATION = 1;
     private final int DISTANCE_TO_SOUND = 10;
     private final int DISTANCE_TO_NOTIFY = 200;
 
@@ -39,10 +44,23 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         initSounds();
         initGPSTracking();
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] result) {
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_FINE_LOCATION: {
+                if (result.length <= 0 || result[0] == PackageManager.PERMISSION_DENIED) {
+                    Toast.makeText(this, "Serendipity requires your location to work!!!", Toast.LENGTH_LONG).show();
+                    initGPSTracking();
+                }
+                return;
+            }
+        }
+    }
     
     private void initSounds(){
         soundList = new ArrayList<Sound>();
-        soundList.add(new Sound(getString(R.string.franziskaner),R.raw.franziskaner,46.500554, 11.353641));
+        soundList.add(new Sound(getString(R.string.franziskaner), R.raw.franziskaner, 46.500554, 11.353641));
         soundList.add(new Sound(getString(R.string.lido), R.raw.lido, 46.490593, 11.344708));
         soundList.add(new Sound(getString(R.string.museion), R.raw.museion, 46.497257, 11.348721));
         soundList.add(new Sound(getString(R.string.obstplatz),R.raw.obstplatz,46.499600, 11.352475));
@@ -54,7 +72,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
 
     private void initGPSTracking(){
-        gpsTracker = new GPSTracker(this,this);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_REQUEST_FINE_LOCATION);
+        } else {
+            gpsTracker = new GPSTracker(this, this);
+        }
 
     }
 
