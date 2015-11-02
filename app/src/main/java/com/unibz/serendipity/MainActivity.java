@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private final int DISTANCE_TO_NOTIFY = 200;
 
     private MediaPlayer mediaPlayer;
-    private MediaPlayer streamPlayer;
+    private boolean prepared;
     private GPSTracker gpsTracker;
     private ArrayList<Sound> soundList;
     private Sound currentSound;
@@ -42,25 +42,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         mediaPlayer = null;
         currentSound = null;
+        prepared = false;
         playButton = (ImageButton) findViewById(R.id.play);
          
         initSounds();
         initGPSTracking();
-
-        streamPlayer = new MediaPlayer();
-        streamPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                Log.d(LOG_TAG, "StreamPlayer prepared");
-                streamPlayer.start();
-            }
-        });
-        try {
-            streamPlayer.setDataSource("https://github.com/davidetaibi/unibz-serendipity/blob/master/app/src/main/res/raw/lido.mp3?raw=true");
-            streamPlayer.prepareAsync();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -78,15 +64,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     
     private void initSounds(){
         soundList = new ArrayList<Sound>();
-        soundList.add(new Sound(getString(R.string.franziskaner), R.raw.franziskaner, "", 46.500554, 11.353641));
-        soundList.add(new Sound(getString(R.string.lido), R.raw.lido, "", 46.490593, 11.344708));
-        soundList.add(new Sound(getString(R.string.museion), R.raw.museion, "", 46.497257, 11.348721));
-        soundList.add(new Sound(getString(R.string.obstplatz),R.raw.obstplatz,"", 46.499600, 11.352475));
-        soundList.add(new Sound(getString(R.string.salewa), R.raw.salewa, "", 46.470532, 11.314391));
-        soundList.add(new Sound(getString(R.string.skatepark), R.raw.skatepark, "", 46.505322, 11.349811));
+        soundList.add(new Sound(getString(R.string.franziskaner), R.raw.franziskaner, "https://github.com/davidetaibi/unibz-serendipity/blob/master/app/src/main/res/raw/franziskaner.mp3?raw=true", 46.500554, 11.353641));
+        soundList.add(new Sound(getString(R.string.lido), R.raw.lido, "https://github.com/davidetaibi/unibz-serendipity/blob/master/app/src/main/res/raw/lido.mp3?raw=true", 46.490593, 11.344708));
+        soundList.add(new Sound(getString(R.string.museion), R.raw.museion, "https://github.com/davidetaibi/unibz-serendipity/blob/master/app/src/main/res/raw/museion.mp3?raw=true", 46.497257, 11.348721));
+        soundList.add(new Sound(getString(R.string.obstplatz),R.raw.obstplatz,"https://github.com/davidetaibi/unibz-serendipity/blob/master/app/src/main/res/raw/obstplatz.mp3?raw=true", 46.499600, 11.352475));
+        soundList.add(new Sound(getString(R.string.salewa), R.raw.salewa, "https://github.com/davidetaibi/unibz-serendipity/blob/master/app/src/main/res/raw/salewa.mp3?raw=true", 46.470532, 11.314391));
+        soundList.add(new Sound(getString(R.string.skatepark), R.raw.skatepark, "https://github.com/davidetaibi/unibz-serendipity/blob/master/app/src/main/res/raw/skatepark.mp3?raw=true", 46.505322, 11.349811));
 
-        //lat: 46.76396308  long: 11.68467848
-        //soundList.add(new Sound("MyHome", R.raw.franziskaner, 46.76396308, 11.68467848));
+        //lat: 46.4977215  long: 11.3526115
+        //soundList.add(new Sound("MyHome", R.raw.franziskaner, "https://github.com/davidetaibi/unibz-serendipity/blob/master/app/src/main/res/raw/franziskaner.mp3?raw=true", 46.4977215, 11.3526115));
     }
 
     private void initGPSTracking(){
@@ -95,7 +81,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         } else {
             gpsTracker = new GPSTracker(this, this);
         }
-
     }
 
     @Override
@@ -126,14 +111,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             case R.id.play:
                 playSound();
                 break;
-            case R.id.stream:
-
-                break;
         }
     }
 
     private void playSound() {
-        if (mediaPlayer != null && !mediaPlayer.isPlaying()) {
+        if (mediaPlayer != null && !mediaPlayer.isPlaying() && prepared) {
             mediaPlayer.start();
         }
     }
@@ -143,10 +125,26 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             mediaPlayer.stop();
             mediaPlayer.release();
             mediaPlayer = null;
+            prepared = false;
         }
         if (currentSound != null) {
-            mediaPlayer = MediaPlayer.create(this, currentSound.getSrcID());
-            playButton.setVisibility(View.VISIBLE);
+            mediaPlayer = new MediaPlayer();
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    Log.d(LOG_TAG, "Sound " + currentSound.getName() + " prepared");
+                    prepared = true;
+                    playButton.setVisibility(View.VISIBLE);
+                }
+            });
+
+            try {
+                mediaPlayer.setDataSource(currentSound.getLink());
+                mediaPlayer.prepareAsync();
+            } catch (IOException e) {
+                Log.e(LOG_TAG, "Error on setting data source");
+                e.printStackTrace();
+            }
         } else {
             playButton.setVisibility(View.GONE);
         }
