@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private final int DISTANCE_TO_NOTIFY = 200;
 
     private MediaPlayer mediaPlayer;
+    private MediaPlayer streamPlayer;
     private GPSTracker gpsTracker;
     private ArrayList<Sound> soundList;
     private Sound currentSound;
@@ -43,6 +45,21 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         
         initSounds();
         initGPSTracking();
+
+        streamPlayer = new MediaPlayer();
+        streamPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                Log.d(LOG_TAG, "StreamPlayer prepared");
+                streamPlayer.start();
+            }
+        });
+        try {
+            streamPlayer.setDataSource("https://github.com/davidetaibi/unibz-serendipity/blob/master/app/src/main/res/raw/lido.mp3?raw=true");
+            streamPlayer.prepareAsync();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -60,12 +77,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     
     private void initSounds(){
         soundList = new ArrayList<Sound>();
-        soundList.add(new Sound(getString(R.string.franziskaner), R.raw.franziskaner, 46.500554, 11.353641));
-        soundList.add(new Sound(getString(R.string.lido), R.raw.lido, 46.490593, 11.344708));
-        soundList.add(new Sound(getString(R.string.museion), R.raw.museion, 46.497257, 11.348721));
-        soundList.add(new Sound(getString(R.string.obstplatz),R.raw.obstplatz,46.499600, 11.352475));
-        soundList.add(new Sound(getString(R.string.salewa), R.raw.salewa, 46.470532, 11.314391));
-        soundList.add(new Sound(getString(R.string.skatepark), R.raw.skatepark, 46.505322, 11.349811));
+        soundList.add(new Sound(getString(R.string.franziskaner), R.raw.franziskaner, "", 46.500554, 11.353641));
+        soundList.add(new Sound(getString(R.string.lido), R.raw.lido, "", 46.490593, 11.344708));
+        soundList.add(new Sound(getString(R.string.museion), R.raw.museion, "", 46.497257, 11.348721));
+        soundList.add(new Sound(getString(R.string.obstplatz),R.raw.obstplatz,"", 46.499600, 11.352475));
+        soundList.add(new Sound(getString(R.string.salewa), R.raw.salewa, "", 46.470532, 11.314391));
+        soundList.add(new Sound(getString(R.string.skatepark), R.raw.skatepark, "", 46.505322, 11.349811));
 
         //lat: 46.76396308  long: 11.68467848
         //soundList.add(new Sound("MyHome", R.raw.franziskaner, 46.76396308, 11.68467848));
@@ -107,6 +124,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 break;
             case R.id.play:
                 playSound();
+                break;
+            case R.id.stream:
+
                 break;
         }
     }
