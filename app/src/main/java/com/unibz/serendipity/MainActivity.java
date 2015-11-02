@@ -3,6 +3,7 @@ package com.unibz.serendipity;
 import android.Manifest;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         mediaPlayer = null;
         currentSound = null;
         playButton = (ImageButton) findViewById(R.id.play);
-        
+         
         initSounds();
         initGPSTracking();
 
