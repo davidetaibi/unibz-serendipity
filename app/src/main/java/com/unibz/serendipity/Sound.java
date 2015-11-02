@@ -8,18 +8,22 @@ public class Sound {
     private double longitude;
     private String name;
     private int srcID;
+    private String link;
 
-    public Sound(String newName,int newSrcID, double newLat,double newLon) {
+    public Sound(String newName,int newSrcID, String newLink, double newLat,double newLon) {
         this.name = newName;
         this.srcID = newSrcID;
+        this.link = newLink;
         this.latitude = newLat;
         this.longitude = newLon;
-
-
     }
 
     public String getName() {
         return this.name;
+    }
+
+    public String getLink() {
+        return link;
     }
 
     public int getSrcID() {
