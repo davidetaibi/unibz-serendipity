@@ -1,4 +1,4 @@
-package com.unibz.serendipity;
+package com.unibz.serendipity.utilities;
 
 /**
  * Created by Felix on 26.10.15.

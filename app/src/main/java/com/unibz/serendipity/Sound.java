@@ -7,15 +7,13 @@ public class Sound {
     private double latitude;
     private double longitude;
     private String name;
-    private int srcID;
-    private String link;
+     private String link;
 
-    public Sound(String newName,int newSrcID, String newLink, double newLat,double newLon) {
+    public Sound(String newName, double newLat,double newLon, String newLink) {
         this.name = newName;
-        this.srcID = newSrcID;
-        this.link = newLink;
         this.latitude = newLat;
         this.longitude = newLon;
+        this.link = newLink;
     }
 
     public String getName() {
@@ -26,9 +24,11 @@ public class Sound {
         return link;
     }
 
-    public int getSrcID() {
-        return srcID;
+    public String toString() {
+        return ""+this.name+" "+this.latitude+" "+this.longitude+" "+this.link;
     }
+
+
 
     public double getDistance(double currLat, double currLon) {
 

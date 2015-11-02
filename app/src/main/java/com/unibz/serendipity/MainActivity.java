@@ -3,7 +3,6 @@ package com.unibz.serendipity;
 import android.Manifest;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -18,6 +17,9 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.unibz.serendipity.utilities.CSVParser;
+import com.unibz.serendipity.utilities.GPSTracker;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     private final int PERMISSIONS_REQUEST_FINE_LOCATION = 1;
     private final int DISTANCE_TO_SOUND = 10;
-    private final int DISTANCE_TO_NOTIFY = 200;
+    private final int DISTANCE_TO_NOTIFY = 500;
 
     private MediaPlayer mediaPlayer;
     private MediaPlayer streamPlayer;
@@ -46,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
          
         initSounds();
         initGPSTracking();
+        CSVParser csvParser = new CSVParser(this);
+
 
         streamPlayer = new MediaPlayer();
         streamPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -78,12 +82,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     
     private void initSounds(){
         soundList = new ArrayList<Sound>();
-        soundList.add(new Sound(getString(R.string.franziskaner), R.raw.franziskaner, "", 46.500554, 11.353641));
-        soundList.add(new Sound(getString(R.string.lido), R.raw.lido, "", 46.490593, 11.344708));
-        soundList.add(new Sound(getString(R.string.museion), R.raw.museion, "", 46.497257, 11.348721));
-        soundList.add(new Sound(getString(R.string.obstplatz),R.raw.obstplatz,"", 46.499600, 11.352475));
-        soundList.add(new Sound(getString(R.string.salewa), R.raw.salewa, "", 46.470532, 11.314391));
-        soundList.add(new Sound(getString(R.string.skatepark), R.raw.skatepark, "", 46.505322, 11.349811));
+
 
         //lat: 46.76396308  long: 11.68467848
         //soundList.add(new Sound("MyHome", R.raw.franziskaner, 46.76396308, 11.68467848));
@@ -126,9 +125,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             case R.id.play:
                 playSound();
                 break;
-            case R.id.stream:
 
-                break;
         }
     }
 
@@ -145,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             mediaPlayer = null;
         }
         if (currentSound != null) {
-            mediaPlayer = MediaPlayer.create(this, currentSound.getSrcID());
+           // mediaPlayer = MediaPlayer.create(this, currentSound.getSrcID());
             playButton.setVisibility(View.VISIBLE);
         } else {
             playButton.setVisibility(View.GONE);
