@@ -30,11 +30,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
 
-        soundList = new SoundListCreator().soundList;
+        soundList = SoundListCreator.soundList;
 
-        for(int i=0;i<soundList.size();i++) {
-            Log.d("soundListElement: ",soundList.get(i).toString());
-        }
     }
 
     /**
@@ -50,9 +47,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+        for(int i=0;i<soundList.size();i++) {
+            LatLng currLoc = new LatLng(soundList.get(i).getLatitude(),soundList.get(i).getLongitude());
+            MarkerOptions currOpts = new MarkerOptions().position(currLoc).title(soundList.get(i).getName());
+            mMap.addMarker(currOpts);
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(currLoc));
+        }
+
     }
 }

@@ -16,6 +16,12 @@ public class Sound {
         this.link = newLink;
     }
 
+    public double getLatitude() {
+        return this.latitude;
+    }
+    public double getLongitude(){
+        return this.longitude;
+    }
     public String getName() {
         return this.name;
     }
