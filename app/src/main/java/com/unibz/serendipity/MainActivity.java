@@ -28,10 +28,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     private final int PERMISSIONS_REQUEST_FINE_LOCATION = 1;
     private final int DISTANCE_TO_SOUND = 10;
-    private final int DISTANCE_TO_NOTIFY = 500;
+    private final int DISTANCE_TO_NOTIFY = 200;
 
     private MediaPlayer mediaPlayer;
-    private MediaPlayer streamPlayer;
+    private boolean prepared;
     private GPSTracker gpsTracker;
     private ArrayList<Sound> soundList;
     private Sound currentSound;
@@ -44,27 +44,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         mediaPlayer = null;
         currentSound = null;
+        prepared = false;
         playButton = (ImageButton) findViewById(R.id.play);
          
         initSounds();
         initGPSTracking();
         CSVParser csvParser = new CSVParser(this);
-
-
-        streamPlayer = new MediaPlayer();
-        streamPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                Log.d(LOG_TAG, "StreamPlayer prepared");
-                streamPlayer.start();
-            }
-        });
-        try {
-            streamPlayer.setDataSource("https://github.com/davidetaibi/unibz-serendipity/blob/master/app/src/main/res/raw/lido.mp3?raw=true");
-            streamPlayer.prepareAsync();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -82,10 +67,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     
     private void initSounds(){
         soundList = new ArrayList<Sound>();
-
-
-        //lat: 46.76396308  long: 11.68467848
-        //soundList.add(new Sound("MyHome", R.raw.franziskaner, 46.76396308, 11.68467848));
     }
 
     private void initGPSTracking(){
@@ -94,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         } else {
             gpsTracker = new GPSTracker(this, this);
         }
-
     }
 
     @Override
@@ -130,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
 
     private void playSound() {
-        if (mediaPlayer != null && !mediaPlayer.isPlaying()) {
+        if (mediaPlayer != null && !mediaPlayer.isPlaying() && prepared) {
             mediaPlayer.start();
         }
     }
@@ -140,10 +120,26 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             mediaPlayer.stop();
             mediaPlayer.release();
             mediaPlayer = null;
+            prepared = false;
         }
         if (currentSound != null) {
-           // mediaPlayer = MediaPlayer.create(this, currentSound.getSrcID());
-            playButton.setVisibility(View.VISIBLE);
+            mediaPlayer = new MediaPlayer();
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    Log.d(LOG_TAG, "Sound " + currentSound.getName() + " prepared");
+                    prepared = true;
+                    playButton.setVisibility(View.VISIBLE);
+                }
+            });
+
+            try {
+                mediaPlayer.setDataSource(currentSound.getLink());
+                mediaPlayer.prepareAsync();
+            } catch (IOException e) {
+                Log.e(LOG_TAG, "Error on setting data source");
+                e.printStackTrace();
+            }
         } else {
             playButton.setVisibility(View.GONE);
         }
