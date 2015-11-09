@@ -3,6 +3,7 @@ package com.unibz.serendipity;
 import android.Manifest;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -50,6 +51,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         initSounds();
         initGPSTracking();
         CSVParser csvParser = new CSVParser(this);
+
+        /** Intents to new Activities...
+        startActivity(new Intent(this,MapsActivity.class));
+        startActivity(new Intent(this,AboutActivity.class));
+        startActivity(new Intent(this,RulesActivity.class));
+        startActivity(new Intent(this,ContactsActivity.class));
+         **/
     }
 
     @Override
