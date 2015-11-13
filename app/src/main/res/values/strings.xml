@@ -18,4 +18,5 @@
     <string name="title_activity_about">AboutActivity</string>
     <string name="title_activity_rules">RulesActivity</string>
     <string name="title_activity_contacts">ContactsActivity</string>
+    <string name="title_activity_home_page">HomePageActivity</string>
 </resources>
