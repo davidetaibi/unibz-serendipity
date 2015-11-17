@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
 
-public class HomePage extends AppCompatActivity implements View.OnClickListener {
+public class HomePageActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,29 +47,29 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
         }
         mLastClickTime=SystemClock.elapsedRealtime();
 
-        if(v == R.id.button) {
+        if(v.getId() == R.id.button) {
             Log.i("clicks", "Sign In");
-            Intent intent = new Intent(HomePage.this, SignIn.class);
-            startActivity(intent);
+           // Intent intent = new Intent(HomePageActivity.this, SignIn.class);
+           // startActivity(intent);
         }
-        else if(v == R.id.button2) {
+        else if(v.getId() == R.id.button2) {
             Log.i("clicks", "Rules");
-            Intent intent = new Intent(HomePage.this, RulesActivity.class);
+            Intent intent = new Intent(HomePageActivity.this, RulesActivity.class);
             startActivity(intent);
         }
-        else if(v == R.id.button3) {
+        else if(v.getId() == R.id.button3) {
             Log.i("clicks", "About");
-            Intent intent = new Intent(HomePage.this, AboutActivity.class);
+            Intent intent = new Intent(HomePageActivity.this, AboutActivity.class);
             startActivity(intent);
         }
-        else if(v == R.id.button4) {
+        else if(v.getId()== R.id.button4) {
             Log.i("clicks", "Contacts");
-            Intent intent = new Intent(HomePage.this, ContactsActivity.class);
+            Intent intent = new Intent(HomePageActivity.this, ContactsActivity.class);
             startActivity(intent);
         }
-        else(v == R.id.button5) {
+        else if(v.getId() == R.id.button5) {
             Log.i("clicks", "Maps");
-            Intent intent = new Intent(HomePage.this, MapsActivity.class);
+            Intent intent = new Intent(HomePageActivity.this, MapsActivity.class);
             startActivity(intent);
         }
 
