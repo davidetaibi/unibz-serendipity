@@ -1,8 +1,7 @@
 package com.unibz.serendipity;
 
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -12,7 +11,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.unibz.serendipity.utilities.SoundListCreator;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {

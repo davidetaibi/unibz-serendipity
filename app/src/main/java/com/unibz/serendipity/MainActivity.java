@@ -51,8 +51,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         initSounds();
         initGPSTracking();
         CSVParser csvParser = new CSVParser(this);
-        startActivity(new Intent(this, HomePageActivity.class));
-        /** Intents to new Activities...
+         startActivity(new Intent(this, HomePageActivity.class));
+
+          /** Intents to new Activities...
         startActivity(new Intent(this,MapsActivity.class));
         startActivity(new Intent(this,AboutActivity.class));
         startActivity(new Intent(this,RulesActivity.class));

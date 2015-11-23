@@ -2,17 +2,14 @@ package com.unibz.serendipity.utilities;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.util.Log;
 
 import com.unibz.serendipity.R;
 import com.unibz.serendipity.Sound;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Cody on 02.11.15.
