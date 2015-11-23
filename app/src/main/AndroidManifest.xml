@@ -60,7 +60,11 @@
             android:name=".SignInActivity"
             android:label="@string/title_activity_sign_in"
             android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+        </activity>    
+	 <activity
+            android:name=".HomePageActivity"
+            android:label=".@string/title_activity_homepage"
+            ></activity>        
     </application>
 
 </manifest>

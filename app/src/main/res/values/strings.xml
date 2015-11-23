@@ -20,4 +20,6 @@
     <string name="title_activity_contacts">ContactsActivity</string>
     <string name="title_activity_home_page">HomePageActivity</string>
     <string name="title_activity_sign_in">SignInActivity</string>
+    <string name="title_activity_home_page">HomePage</string>
+    <string name="title_activity_home_page2">HomePageActivity2</string>
 </resources>

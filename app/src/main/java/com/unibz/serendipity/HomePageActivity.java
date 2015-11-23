@@ -21,6 +21,14 @@ import com.unibz.serendipity.R;
 import com.unibz.serendipity.RulesActivity;
 
 import static android.support.v4.app.ActivityCompat.startActivity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.SystemClock;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.view.Menu;
+import android.widget.Button;
 
 public class HomePageActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -64,52 +72,55 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
 
-        if (SystemClock.elapsedRealtime()- mLastClickTime < 1000){
+        if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
             return;
         }
-        mLastClickTime=SystemClock.elapsedRealtime();
+        mLastClickTime = SystemClock.elapsedRealtime();
 
-        if(v.getId() == R.id.button) {
+        if (v.getId() == R.id.button) {
             Log.i("clicks", "Sign In");
             Intent intent = new Intent(HomePageActivity.this, SignInActivity.class);
             startActivity(intent);
-        }
-        else if(v.getId() == R.id.button2) {
+        } else if (v.getId() == R.id.button2) {
             Log.i("clicks", "Upload");
             //Intent intent = new Intent(HomePageActivity.this, UploadActivity.class);
             //startActivity(intent);
-        }
-        else if(v.getId() == R.id.button3) {
-            Log.i("clicks", "About");
-            Intent intent = new Intent(HomePageActivity.this, AboutActivity.class);
-            startActivity(intent);
-        }
-        else if(v.getId() == R.id.button4) {
-            Log.i("clicks", "Cities");
-            //Intent intent = new Intent(HomePageActivity.this, CitiesActivity.class);
-            //startActivity(intent);
-        }
-        else if(v.getId() == R.id.button5) {
-            Log.i("clicks", "Maps");
-            Intent intent = new Intent(HomePageActivity.this, MapsActivity.class);
-            startActivity(intent);
-        }
-        else if(v.getId() == R.id.button6) {
-            Log.i("clicks", "Listen");
-            //Intent intent = new Intent(HomePageActivity.this, ListenActivity.class);
-            //startActivity(intent);
-        }
-        else if(v.getId() == R.id.button7) {
+            // Intent intent = new Intent(HomePageActivity.this, SignIn.class);
+            // startActivity(intent);
+        } else if (v.getId() == R.id.button2) {
             Log.i("clicks", "Rules");
             Intent intent = new Intent(HomePageActivity.this, RulesActivity.class);
             startActivity(intent);
-        }
-        else(v.getId() == R.id.button8) {
-            Log.i("clicks", "Contacts");
-            //Intent intent = new Intent(HomePageActivity.this, ContatsActivity.class);
+        } else if (v.getId() == R.id.button3) {
+            Log.i("clicks", "About");
+            Intent intent = new Intent(HomePageActivity.this, AboutActivity.class);
+            startActivity(intent);
+        } else if (v.getId() == R.id.button4) {
+            Log.i("clicks", "Cities");
+            //Intent intent = new Intent(HomePageActivity.this, CitiesActivity.class);
             //startActivity(intent);
+        } else if (v.getId() == R.id.button4) {
+            Log.i("clicks", "Contacts");
+            Intent intent = new Intent(HomePageActivity.this, ContactsActivity.class);
+            startActivity(intent);
+        } else if (v.getId() == R.id.button5) {
+                Log.i("clicks", "Maps");
+                Intent intent = new Intent(HomePageActivity.this, MapsActivity.class);
+                startActivity(intent);
+        } else if (v.getId() == R.id.button6) {
+                Log.i("clicks", "Listen");
+                //Intent intent = new Intent(HomePageActivity.this, ListenActivity.class);
+                //startActivity(intent);
+        } else if (v.getId() == R.id.button7) {
+                Log.i("clicks", "Rules");
+                Intent intent = new Intent(HomePageActivity.this, RulesActivity.class);
+                startActivity(intent);
+        } else (v.getId() == R.id.button8) {
+                Log.i("clicks", "Contacts");
+                //Intent intent = new Intent(HomePageActivity.this, ContatsActivity.class);
+                //startActivity(intent);
+            }
+
         }
 
-    }
-
-}
+    }}
