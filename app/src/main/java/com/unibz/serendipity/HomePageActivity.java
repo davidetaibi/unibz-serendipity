@@ -72,7 +72,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
             startActivity(intent);
         } else if (v.getId() == R.id.exploreButton) {
             Log.d("clicks", "Explore");
-            Intent intent = new Intent(HomePageActivity.this, ExploreActivity.class);
+            Intent intent = new Intent(HomePageActivity.this, MapsActivity.class);
             startActivity(intent);
         } else if (v.getId() == R.id.listenButton) {
             Log.d("clicks", "Cities");
