@@ -29,6 +29,9 @@
     <string name="button_rules">Rules</string>
     <string name="button_cities">Cities</string>
     <string name="button_contacts">Contacts</string>
+    <string name="title_activity_listen">ListenActivity</string>
+    <string name="title_activity_cities">CitiesActivity</string>
+    <string name="title_activity_upload">UploadActivity</string>
 
 
 </resources>

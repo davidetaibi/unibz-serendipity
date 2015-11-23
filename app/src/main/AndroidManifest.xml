@@ -62,8 +62,18 @@
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".ExploreActivity"
-            android:label="@string/title_activity_explore"
+            android:name=".ListenActivity"
+            android:label="@string/title_activity_listen"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".CitiesActivity"
+            android:label="@string/title_activity_cities"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".UploadActivity"
+            android:label="@string/title_activity_upload"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
