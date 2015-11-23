@@ -12,7 +12,8 @@
     android:background="@drawable/bgimg"
     android:clickable="true"
     android:layout_alignParentBottom="true"
-    >
+     >
+
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,14 +21,16 @@
         android:layout_alignParentBottom="true"
         android:textColor="#ffffff"
         android:fontFamily=""
-        android:layout_centerInParent="true">
+        android:gravity="center"
+
+        android:layout_centerHorizontal="true">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#000000"
         android:fontFamily="Avenir Medium"
         android:textColor="#ffffff"
-        android:gravity="center"
+
         android:orientation="vertical"
 
         >
