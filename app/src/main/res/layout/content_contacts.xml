@@ -7,10 +7,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_contacts" tools:context="com.unibz.serendipity.ContactsActivity">
+    tools:showIn="@layout/activity_contacts" tools:context="com.unibz.serendipity.ContactsActivity"
+    android:background="@drawable/bgimg">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="some text here..."/>
+        android:text="some text here..."
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:textColor="#ffffff" />
 </RelativeLayout>
