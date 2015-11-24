@@ -12,7 +12,7 @@
     android:background="@drawable/bgimg"
     android:clickable="true"
     android:layout_alignParentBottom="true"
-     >
+    >
 
 
     <ScrollView
@@ -25,89 +25,89 @@
         android:fontFamily=""
         android:gravity="center"
         android:layout_centerHorizontal="true">
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#000000"
-        android:fontFamily="Avenir Medium"
-        android:textColor="#ffffff"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#000000"
+            android:fontFamily="Avenir Medium"
+            android:textColor="#ffffff"
 
-        android:orientation="vertical"
+            android:orientation="vertical"
 
-        >
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_signIn"
-        android:id="@+id/signInButton"
-        android:background="#000000"
-        android:textColor="#ffffff"
+            >
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_signIn"
+                android:id="@+id/signInButton"
+                android:background="#000000"
+                android:textColor="#ffffff"
 
-         />
+                />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_upload"
-        android:id="@+id/uploadButton"
-        android:background="#000000"
-        android:textColor="#ffffff"
-         />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_upload"
+                android:id="@+id/uploadButton"
+                android:background="#000000"
+                android:textColor="#ffffff"
+                />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_about"
-        android:id="@+id/aboutButton"
-        android:background="#000000"
-        android:textColor="#ffffff"
-       />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_about"
+                android:id="@+id/aboutButton"
+                android:background="#000000"
+                android:textColor="#ffffff"
+                />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_explore"
-        android:id="@+id/exploreButton"
-        android:background="#000000"
-        android:textColor="#ffffff"
-        />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_explore"
+                android:id="@+id/exploreButton"
+                android:background="#000000"
+                android:textColor="#ffffff"
+                />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_listen"
-        android:id="@+id/listenButton"
-        android:background="#000000"
-        android:textColor="#ffffff"
-         />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_listen"
+                android:id="@+id/listenButton"
+                android:background="#000000"
+                android:textColor="#ffffff"
+                />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_rules"
-        android:id="@+id/rulesButton"
-        android:background="#000000"
-        android:textColor="#ffffff"
-       />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_rules"
+                android:id="@+id/rulesButton"
+                android:background="#000000"
+                android:textColor="#ffffff"
+                />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_cities"
-        android:id="@+id/citiesButton"
-        android:background="#000000"
-        android:textColor="#ffffff"
-        />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_cities"
+                android:id="@+id/citiesButton"
+                android:background="#000000"
+                android:textColor="#ffffff"
+                />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_contacts"
-        android:id="@+id/contactsButton"
-        android:background="#000000"
-        android:textColor="#ffffff"
-         />
-    </LinearLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_contacts"
+                android:id="@+id/contactsButton"
+                android:background="#000000"
+                android:textColor="#ffffff"
+                />
+        </LinearLayout>
     </ScrollView>
 
 </RelativeLayout>
