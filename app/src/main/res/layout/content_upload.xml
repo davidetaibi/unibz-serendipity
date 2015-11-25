@@ -6,7 +6,20 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@drawable/bgimg"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_upload" tools:context="com.unibz.serendipity.UploadActivity">
-
+<TextView
+    android:id="@+id/link"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/uploadfromsite"
+    android:autoLink="web"
+    android:linksClickable="true"
+    android:textColor="#ffffff"
+    android:textStyle="italic"
+    android:textAppearance="?android:attr/textAppearanceSmall"
+    android:layout_centerVertical="true"
+    android:layout_alignParentStart="true">
+</TextView>
 </RelativeLayout>
