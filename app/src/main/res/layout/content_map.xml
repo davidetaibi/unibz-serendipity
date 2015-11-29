@@ -1,42 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:weightSum="1">
 
-    <ImageButton
+    <ScrollView
+        android:layout_marginTop="150dp"
         android:layout_width="wrap_content"
-        android:layout_height="135dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:textColor="#ffffff"
+        android:fontFamily=""
+        android:gravity="right">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#000000"
+            android:fontFamily="Avenir Medium"
+            android:textColor="#ffffff"
+
+            android:orientation="vertical">
+
+        </LinearLayout></ScrollView>
+
+    <ImageButton
+        android:layout_width="150dp"
+        android:layout_height="110dp"
         android:id="@+id/imageButton"
         android:src="@drawable/abc_ic_search_api_mtrl_alpha"
         android:background="#000000"
         android:clickable="true"
         android:layout_weight="0.31"
-        android:layout_alignParentRight="true"
-        android:layout_gravity="right"
-        android:autoLink="" />
+        android:autoLink=""
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="135dp"
-        android:id="@+id/imageButton2"
-        android:layout_gravity="center_vertical"
-        android:layout_alignTop="@id/imageButton"
-        android:layout_weight="0.31"
-        android:src="@drawable/ic_media_play"
-        android:background="#000000"
-        android:clickable="true"
-        android:gravity="right"/>
+    android:layout_width="150dp"
+    android:layout_height="110dp"
+    android:id="@+id/imageButton2"
+    android:layout_gravity="center_vertical"
+    android:layout_weight="0.31"
+    android:src="@drawable/ic_media_play"
+    android:background="#000000"
+    android:clickable="true"
+    android:gravity="right"
+    android:layout_above="@+id/imageButton3"
+    android:layout_alignStart="@+id/imageButton" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="135dp"
-        android:id="@+id/imageButton3"
-        android:layout_alignTop="@id/imageButton2"
-        android:src="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha"
-        android:background="#000000"
-        android:clickable="true"
-        android:layout_weight="0.31"
-        android:layout_gravity="bottom" />
+    android:layout_width="150dp"
+    android:layout_height="110dp"
+    android:id="@+id/imageButton3"
+    android:src="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha"
+    android:background="#000000"
+    android:clickable="true"
+    android:layout_weight="0.31"
+    android:layout_gravity="bottom"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentEnd="true" />
 
-
-</LinearLayout>
+</RelativeLayout>
