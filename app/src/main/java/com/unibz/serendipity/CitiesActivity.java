@@ -11,6 +11,15 @@ public class CitiesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+    //    lv = (ListView) findViewById(R.id.soundList);
+
+       // ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
+         //       (this, android.R.layout.simple_list_item_1, soundList);
+
+    //    lv.setAdapter(arrayAdapter);
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cities);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
