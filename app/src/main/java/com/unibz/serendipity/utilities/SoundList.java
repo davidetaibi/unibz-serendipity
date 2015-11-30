@@ -16,7 +16,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by fallenritemonk on 26/11/15.
@@ -27,6 +26,7 @@ public class SoundList {
     private final static String FILE_NAME = "all-sounds.xml";
 
     public static ArrayList<Sound> soundList = new ArrayList<Sound>();
+    public static ArrayList<String> cityList = new ArrayList<String>();
     private static Context context = null;
 
     public SoundList(Context context) {
@@ -47,8 +47,14 @@ public class SoundList {
 
             Toast.makeText(context.getApplicationContext(), "Soundlist Downloaded", Toast.LENGTH_LONG).show();
 
+            Log.d(LOG_TAG, "SoundList:");
             for (int i = 0; i < soundList.size(); i++) {
-                Log.d(LOG_TAG, i + ": " + soundList.get(i).toString());
+                Log.d(LOG_TAG, soundList.get(i).toString());
+            }
+
+            Log.d(LOG_TAG, "CityList:");
+            for (int i = 0; i < cityList.size(); i++) {
+                Log.d(LOG_TAG, i + ": " + cityList.get(i).toString());
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -103,6 +109,7 @@ public class SoundList {
         String backgroundLink = "BackgroundSound";
         String soundLink = "MainSound";
         String createrName = "username";
+        String city = "City";
 
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
@@ -124,6 +131,11 @@ public class SoundList {
                 soundLink = readValue(parser, soundLink);
             } else if (name.equals(createrName)) {
                 createrName = readValue(parser, createrName);
+            } else if (name.equals(city)) {
+                city = readValue(parser, city);
+                if (cityList.indexOf(city) == -1) {
+                    cityList.add(city);
+                }
             } else {
                 skip(parser);
             }
