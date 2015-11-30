@@ -4,6 +4,7 @@ package com.unibz.serendipity;
  * Created by Cody on 26.10.15.
  */
 public class Sound {
+    private final int id;
     private double latitude;
     private double longitude;
     private String title;
@@ -11,7 +12,8 @@ public class Sound {
     private String soundLink;
     private String createrName;
 
-    public Sound(String newTitle, double newLat,double newLon, String newBackgroundLink, String newSoundLink, String newCreaterName) {
+    public Sound(int newId, String newTitle, double newLat,double newLon, String newBackgroundLink, String newSoundLink, String newCreaterName) {
+        this.id = newId;
         this.title = newTitle;
         this.latitude = newLat;
         this.longitude = newLon;
@@ -38,10 +40,8 @@ public class Sound {
     }
 
     public String toString() {
-        return ""+this.title +" "+this.latitude+" "+this.longitude+" "+this.backgroundLink+" "+this.soundLink+" "+this.createrName;
+        return id + ": "+this.title +" "+this.latitude+" "+this.longitude+" "+this.backgroundLink+" "+this.soundLink+" "+this.createrName;
     }
-
-
 
     public double getDistance(double currLat, double currLon) {
 

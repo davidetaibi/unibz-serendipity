@@ -96,6 +96,7 @@ public class SoundList {
 
     private static Sound readSound(XmlPullParser parser) throws XmlPullParserException, IOException {
         parser.require(XmlPullParser.START_TAG, null, "sound");
+        String id = "sound_id";
         String latitude = "Latitude";
         String longitude = "Longitude";
         String title = "title";
@@ -108,7 +109,10 @@ public class SoundList {
                 continue;
             }
             String name = parser.getName();
-            if (name.equals(latitude)) {
+
+            if (name.equals(id)) {
+                id = readValue(parser, id);
+            } else if (name.equals(latitude)) {
                 latitude = readValue(parser, latitude);
             } else if (name.equals(longitude)) {
                 longitude = readValue(parser, longitude);
@@ -124,7 +128,7 @@ public class SoundList {
                 skip(parser);
             }
         }
-        return new Sound(title, Double.valueOf(latitude), Double.valueOf(longitude), backgroundLink, soundLink, createrName);
+        return new Sound(Integer.valueOf(id), title, Double.valueOf(latitude), Double.valueOf(longitude), backgroundLink, soundLink, createrName);
     }
 
     private static String readValue(XmlPullParser parser, String tag) throws IOException, XmlPullParserException {
