@@ -163,6 +163,9 @@ public class SoundList {
             if (msg.what == 0) {
                 Log.d(LOG_TAG, "Download completed");
                 createList();
+            } else if (msg.what == 1) {
+                Log.d(LOG_TAG, "Download error");
+                createList();
             }
         }
     }

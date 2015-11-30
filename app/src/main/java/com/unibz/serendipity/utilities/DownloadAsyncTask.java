@@ -16,7 +16,7 @@ import java.net.URLConnection;
 /**
  * Created by fallenritemonk on 26/11/15.
  */
-public class DownloadAsyncTask extends AsyncTask<String, Void, Void> {
+public class DownloadAsyncTask extends AsyncTask<String, Void, Boolean> {
     private final String LOG_TAG = "DOWNLOAD_ASYNC_TASK";
 
     private final Context context;
@@ -28,7 +28,7 @@ public class DownloadAsyncTask extends AsyncTask<String, Void, Void> {
     }
 
     @Override
-    protected Void doInBackground(String... params) {
+    protected Boolean doInBackground(String... params) {
         Log.d(LOG_TAG, "Download from: " + params[0]);
         Log.d(LOG_TAG, "Download to: " + params[1]);
 
@@ -54,8 +54,10 @@ public class DownloadAsyncTask extends AsyncTask<String, Void, Void> {
             Log.d(LOG_TAG, "Download completed");
         } catch (MalformedURLException e) {
             e.printStackTrace();
+            return false;
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         } finally {
             try {
                 if (inputStream != null) {
@@ -68,13 +70,17 @@ public class DownloadAsyncTask extends AsyncTask<String, Void, Void> {
                 e.printStackTrace();
             }
         }
-        return null;
+        return true;
     }
 
     @Override
-    protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
+    protected void onPostExecute(Boolean result) {
+        super.onPostExecute(result);
 
-        handler.sendEmptyMessage(0);
+        if (result) {
+            handler.sendEmptyMessage(0);
+        } else {
+            handler.sendEmptyMessage(1);
+        }
     }
 }
