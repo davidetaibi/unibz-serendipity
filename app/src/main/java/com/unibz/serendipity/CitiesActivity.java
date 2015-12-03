@@ -19,6 +19,10 @@ import java.util.ArrayList;
 
 public class CitiesActivity extends AppCompatActivity {
 
+
+    String session_name;
+    String session_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -26,6 +30,10 @@ public class CitiesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cities);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Bundle extras=getIntent().getExtras();
+        session_name=extras.getString("session_name");
+        session_id=extras.getString("session_id");
 
         new FetchItems().execute();
 
@@ -79,7 +87,12 @@ public class CitiesActivity extends AppCompatActivity {
 
 
     public void addCity_click(View view){
+            Intent intent = new Intent(this,UploadActivity.class);
 
+            intent.putExtra("session_name",session_name);
+            intent.putExtra("session_id",session_id);
+
+            startActivity(intent);
     }
 
 }
