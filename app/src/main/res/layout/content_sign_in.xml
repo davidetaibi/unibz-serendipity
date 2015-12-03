@@ -21,7 +21,7 @@
         android:id="@+id/scrollView"
         android:layout_alignParentBottom="true"
         android:textColor="#ffffff"
-        android:fontFamily=""
+        android:fontFamily="Avenir Medium"
         android:gravity="left">
     <LinearLayout
         android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Name"
-        android:id="@+id/textView"
+        android:id="@+id/editName"
         android:layout_above="@+id/textView2"
         android:fontFamily="Avenir Medium"
         android:textColor="#ffffff"
@@ -46,26 +46,8 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Surname"
-        android:id="@+id/textView2"
-        android:fontFamily="Avenir Medium"
-        android:textColor="#ffffff"
-        android:clickable="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Nickname"
-        android:id="@+id/textView3"
-        android:fontFamily="Avenir Medium"
-        android:textColor="#ffffff"
-        android:clickable="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gender"
-        android:id="@+id/textView4"
+        android:id="@+id/editNickname"
         android:fontFamily="Avenir Medium"
         android:textColor="#ffffff"
         android:clickable="true" />
@@ -74,25 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Email Address"
-        android:id="@+id/textView5"
-        android:fontFamily="Avenir Medium"
-        android:textColor="#ffffff"
-        android:clickable="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="City"
-        android:id="@+id/textView6"
-        android:fontFamily="Avenir Medium"
-        android:textColor="#ffffff"
-        android:clickable="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Profession/Studies"
-        android:id="@+id/textView7"
+        android:id="@+id/editEmail"
         android:fontFamily="Avenir Medium"
         android:textColor="#ffffff"
         android:clickable="true" />
@@ -101,13 +65,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Password"
-        android:id="@+id/textView8"
+        android:id="@+id/editPassword"
         android:fontFamily="Avenir Medium"
         android:password="true"
         android:textColor="#ffffff"
         android:clickable="true" />
 
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign In"
+            android:id="@+id/doSignIn"
+            android:fontFamily="Avenir Medium"
+            android:textColor="#ffffff"
+            android:background="#000000"
+            android:onClick="doSignIn_click"/>
+
     </LinearLayout></ScrollView>
+
+    <TextView
+        android:id="@+id/link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register"
+        android:autoLink="web"
+        android:linksClickable="true"
+        android:textColor="#ffffff"
+        android:textStyle="italic"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true">
+    </TextView>
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -119,4 +108,5 @@
         android:background="#000000"
         android:clickable="true"
         android:src="@drawable/common_signin_btn_icon_normal_light" />
+
 </RelativeLayout>
