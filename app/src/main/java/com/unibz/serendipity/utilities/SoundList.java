@@ -110,6 +110,8 @@ public class SoundList {
         String soundLink = "MainSound";
         String createrName = "username";
         String city = "City";
+        String liked = "Liked";
+        String likesCount = "LikesCount";
 
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
@@ -131,6 +133,10 @@ public class SoundList {
                 soundLink = readValue(parser, soundLink);
             } else if (name.equals(createrName)) {
                 createrName = readValue(parser, createrName);
+            } else if (name.equals(liked)) {
+                liked = readValue(parser, liked);
+            } else if (name.equals(likesCount)) {
+                likesCount = readValue(parser, likesCount);
             } else if (name.equals(city)) {
                 city = readValue(parser, city);
                 if (cityList.indexOf(city) == -1) {
@@ -140,7 +146,15 @@ public class SoundList {
                 skip(parser);
             }
         }
-        return new Sound(Integer.valueOf(id), title, Double.valueOf(latitude), Double.valueOf(longitude), backgroundLink, soundLink, createrName);
+
+        if (liked.equals("Liked")) {
+            liked = "false";
+        }
+        if (likesCount.equals("LikesCount")) {
+            likesCount = "0";
+        }
+
+        return new Sound(Integer.valueOf(id), title, Double.valueOf(latitude), Double.valueOf(longitude), backgroundLink, soundLink, createrName, Boolean.valueOf(liked), Integer.valueOf(likesCount));
     }
 
     private static String readValue(XmlPullParser parser, String tag) throws IOException, XmlPullParserException {

@@ -11,8 +11,10 @@ public class Sound {
     private String backgroundLink;
     private String soundLink;
     private String createrName;
+    private boolean liked;
+    private int likesCount;
 
-    public Sound(int newId, String newTitle, double newLat,double newLon, String newBackgroundLink, String newSoundLink, String newCreaterName) {
+    public Sound(int newId, String newTitle, double newLat,double newLon, String newBackgroundLink, String newSoundLink, String newCreaterName, boolean newLiked, int newLikesCount) {
         this.id = newId;
         this.title = newTitle;
         this.latitude = newLat;
@@ -20,6 +22,8 @@ public class Sound {
         this.backgroundLink = newBackgroundLink;
         this.soundLink = newSoundLink;
         this.createrName = newCreaterName;
+        this.liked = newLiked;
+        this.likesCount = newLikesCount;
     }
 
     public double getLatitude() {
@@ -40,7 +44,7 @@ public class Sound {
     }
 
     public String toString() {
-        return id + ": "+this.title +" "+this.latitude+" "+this.longitude+" "+this.backgroundLink+" "+this.soundLink+" "+this.createrName;
+        return id + ": "+this.title +" "+this.latitude+" "+this.longitude+" "+this.backgroundLink+" "+this.soundLink+" "+this.createrName+" liked:"+liked+" likes:"+likesCount;
     }
 
     public double getDistance(double currLat, double currLon) {
