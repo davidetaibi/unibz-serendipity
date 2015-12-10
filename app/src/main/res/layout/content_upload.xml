@@ -8,9 +8,7 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="@drawable/bgimg"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-<<<<<<< HEAD
-    tools:showIn="@layout/activity_upload" tools:context="com.unibz.serendipity.UploadActivity"
-    android:background="@drawable/bgimg">
+    tools:showIn="@layout/activity_upload" tools:context="com.unibz.serendipity.UploadActivity">
 
     <EditText
         android:layout_width="wrap_content"
@@ -23,8 +21,7 @@
         android:text="Go to website to upload"
         android:clickable="true"
         android:textColor="#ffffff" />
-=======
-    tools:showIn="@layout/activity_upload" tools:context="com.unibz.serendipity.UploadActivity">
+
 <TextView
     android:id="@+id/link"
     android:layout_width="wrap_content"
@@ -38,5 +35,4 @@
     android:layout_centerVertical="true"
     android:layout_alignParentStart="true">
 </TextView>
->>>>>>> refs/remotes/origin/master
 </RelativeLayout>

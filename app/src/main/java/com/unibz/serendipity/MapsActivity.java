@@ -9,14 +9,13 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.unibz.serendipity.utilities.SoundListCreator;
+import com.unibz.serendipity.utilities.SoundList;
 
 import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private ArrayList<Sound> soundList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +25,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-
-        soundList = SoundListCreator.soundList;
-
     }
 
     /**
@@ -46,9 +41,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
 
-        for(int i=0;i<soundList.size();i++) {
-            LatLng currLoc = new LatLng(soundList.get(i).getLatitude(),soundList.get(i).getLongitude());
-            MarkerOptions currOpts = new MarkerOptions().position(currLoc).title(soundList.get(i).getName());
+        for(int i=0;i< SoundList.soundList.size();i++) {
+            LatLng currLoc = new LatLng(SoundList.soundList.get(i).getLatitude(),SoundList.soundList.get(i).getLongitude());
+            MarkerOptions currOpts = new MarkerOptions().position(currLoc).title(SoundList.soundList.get(i).getTitle());
             mMap.addMarker(currOpts);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(currLoc));
         }

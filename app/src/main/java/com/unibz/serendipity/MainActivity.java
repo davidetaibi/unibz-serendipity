@@ -18,8 +18,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.unibz.serendipity.utilities.CSVParser;
 import com.unibz.serendipity.utilities.GPSTracker;
+import com.unibz.serendipity.utilities.SoundList;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,13 +28,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private final String LOG_TAG = "MAIN_ACTIVITY";
 
     private final int PERMISSIONS_REQUEST_FINE_LOCATION = 1;
+    private final int PERMISSIONS_REQUEST_WRITE_EXTERNAL = 2;
     private final int DISTANCE_TO_SOUND = 10;
     private final int DISTANCE_TO_NOTIFY = 200;
 
     private MediaPlayer mediaPlayer;
     private boolean prepared;
     private GPSTracker gpsTracker;
-    private ArrayList<Sound> soundList;
     private Sound currentSound;
     private ImageButton playButton;
 
@@ -47,10 +47,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         currentSound = null;
         prepared = false;
         playButton = (ImageButton) findViewById(R.id.play);
-         
-        initSounds();
+
+        initList();
         initGPSTracking();
-        CSVParser csvParser = new CSVParser(this);
          startActivity(new Intent(this, HomePageActivity.class));
 
           /** Intents to new Activities...
@@ -71,11 +70,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 }
                 return;
             }
+            case PERMISSIONS_REQUEST_WRITE_EXTERNAL: {
+                if (result.length <= 0 || result[0] == PackageManager.PERMISSION_DENIED) {
+                    Toast.makeText(this, "Serendipity requires write permission to work!!!", Toast.LENGTH_LONG).show();
+                    initList();
+                }
+                return;
+            }
         }
-    }
-    
-    private void initSounds(){
-        soundList = new ArrayList<Sound>();
     }
 
     private void initGPSTracking(){
@@ -83,6 +85,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_REQUEST_FINE_LOCATION);
         } else {
             gpsTracker = new GPSTracker(this, this);
+        }
+    }
+
+    private void initList() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_WRITE_EXTERNAL);
+        } else {
+            SoundList soundList = new SoundList(this);
+            soundList.download();
         }
     }
 
@@ -136,14 +147,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
-                    Log.d(LOG_TAG, "Sound " + currentSound.getName() + " prepared");
+                    Log.d(LOG_TAG, "Sound " + currentSound.getTitle() + " prepared");
                     prepared = true;
                     playButton.setVisibility(View.VISIBLE);
                 }
             });
 
             try {
-                mediaPlayer.setDataSource(currentSound.getLink());
+                mediaPlayer.setDataSource(currentSound.getSoundLink());
                 mediaPlayer.prepareAsync();
             } catch (IOException e) {
                 Log.e(LOG_TAG, "Error on setting data source");
@@ -160,12 +171,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         Log.d(LOG_TAG, "Location changed: lat: " + location.getLatitude() + "  long: " + location.getLongitude());
 
         double distance = 0.0;
-        for (int i = 0; i < soundList.size(); i++) {
-            Sound sound = soundList.get(i);
+        for (int i = 0; i < SoundList.soundList.size(); i++) {
+            Sound sound = SoundList.soundList.get(i);
             distance  = sound.getDistance(location.getLatitude(), location.getLongitude());
 
             if (distance <= DISTANCE_TO_SOUND) {
-                Log.d(LOG_TAG, "Distance to " + soundList.get(i).getName() + ": " + distance);
+                Log.d(LOG_TAG, "Distance to " + SoundList.soundList.get(i).getTitle() + ": " + distance);
                 if (currentSound != sound) {
                     currentSound = sound;
                     prepareSound();
@@ -177,8 +188,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 }
             }
             if(distance > DISTANCE_TO_SOUND && distance <= DISTANCE_TO_NOTIFY) {
-                Log.d(LOG_TAG, "Distance to " + soundList.get(i).getName() + ": " + distance);
-                notifyUser("Serendipity", "You're " + (int)distance + " m away from " + soundList.get(i).getName() + ".");
+                Log.d(LOG_TAG, "Distance to " + SoundList.soundList.get(i).getTitle() + ": " + distance);
+                notifyUser("Serendipity", "You're " + (int)distance + " m away from " + SoundList.soundList.get(i).getTitle() + ".");
             }
         }
     }

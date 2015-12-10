@@ -9,4 +9,41 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_listen" tools:context="com.unibz.serendipity.ListenActivity">
 
+    <ImageButton
+        android:state_focused="true"
+        android:state_pressed="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#000000"
+        android:id="@+id/button"
+        android:clickable="true"
+        android:src="@drawable/ic_media_play" />
+    <ImageButton
+        android:state_focused="false"
+        android:state_pressed="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#000000"
+        android:id="@+id/button2"
+        android:layout_below="@id/button"
+        android:src="@drawable/ic_media_pause" />
+    <ImageButton
+        android:state_focused="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#000000"
+        android:id="@+id/button3"
+        android:layout_below="@id/button2"
+        android:src="@drawable/mr_ic_audio_vol" />
+    <ImageButton
+        android:state_focused="false"
+        android:state_pressed="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:background="#000000"
+        android:id="@+id/button4"
+        android:layout_below="@id/button3"
+        android:src="@drawable/abc_ic_voice_search_api_mtrl_alpha" />
+
 </RelativeLayout>

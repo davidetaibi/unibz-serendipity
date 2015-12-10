@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_home_page" tools:context=".HomePage"
+    tools:showIn="@layout/activity_register" tools:context="com.unibz.serendipity.RegisterActivity"
+
     android:background="@drawable/bgimg"
     android:clickable="true"
     android:layout_alignParentBottom="true">
@@ -22,8 +22,7 @@
         android:layout_alignParentBottom="true"
         android:textColor="#ffffff"
         android:fontFamily=""
-        android:gravity="center"
-        android:layout_centerHorizontal="true">
+        android:gravity="left">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,79 +33,92 @@
             android:orientation="vertical"
 
             >
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:id="@+id/textName"
+                android:layout_above="@+id/textView2"
+                android:fontFamily="Avenir Medium"
+                android:textColor="#ffffff"
+                android:clickable="true" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Surname"
+                android:id="@+id/textSurname"
+                android:fontFamily="Avenir Medium"
+                android:textColor="#ffffff"
+                android:clickable="true" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nickname"
+                android:id="@+id/textNicknmae"
+                android:fontFamily="Avenir Medium"
+                android:textColor="#ffffff"
+                android:clickable="true" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gender"
+                android:id="@+id/textGender"
+                android:fontFamily="Avenir Medium"
+                android:textColor="#ffffff"
+                android:clickable="true" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email Address"
+                android:id="@+id/textEmail"
+                android:fontFamily="Avenir Medium"
+                android:textColor="#ffffff"
+                android:clickable="true" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="City"
+                android:id="@+id/textCity"
+                android:fontFamily="Avenir Medium"
+                android:textColor="#ffffff"
+                android:clickable="true" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profession/Studies"
+                android:id="@+id/textPS"
+                android:fontFamily="Avenir Medium"
+                android:textColor="#ffffff"
+                android:clickable="true" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password"
+                android:id="@+id/textPass"
+                android:fontFamily="Avenir Medium"
+                android:password="true"
+                android:textColor="#ffffff"
+                android:clickable="true" />
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/button_signIn"
-                android:id="@+id/signInButton"
-                android:background="#000000"
+                android:text="Save User"
+                android:id="@+id/saveUser"
+                android:fontFamily="Avenir Medium"
                 android:textColor="#ffffff"
-
-                />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/button_upload"
-                android:id="@+id/uploadButton"
                 android:background="#000000"
-                android:textColor="#ffffff"
-                />
+                android:onClick="doReg_click" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/button_about"
-                android:id="@+id/aboutButton"
-                android:background="#000000"
-                android:textColor="#ffffff"
-                />
+        </LinearLayout></ScrollView>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/button_explore"
-                android:id="@+id/exploreButton"
-                android:background="#000000"
-                android:textColor="#ffffff"
-                />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/button_listen"
-                android:id="@+id/listenButton"
-                android:background="#000000"
-                android:textColor="#ffffff"
-                />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/button_rules"
-                android:id="@+id/rulesButton"
-                android:background="#000000"
-                android:textColor="#ffffff"
-                />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/button_cities"
-                android:id="@+id/citiesButton"
-                android:background="#000000"
-                android:textColor="#ffffff"
-                />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/button_contacts"
-                android:id="@+id/contactsButton"
-                android:background="#000000"
-                android:textColor="#ffffff"
-                />
-        </LinearLayout>
-    </ScrollView>
 
 </RelativeLayout>

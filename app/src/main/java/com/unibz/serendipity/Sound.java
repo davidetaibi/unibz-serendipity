@@ -4,16 +4,22 @@ package com.unibz.serendipity;
  * Created by Cody on 26.10.15.
  */
 public class Sound {
+    private final int id;
     private double latitude;
     private double longitude;
-    private String name;
-     private String link;
+    private String title;
+    private String backgroundLink;
+    private String soundLink;
+    private String createrName;
 
-    public Sound(String newName, double newLat,double newLon, String newLink) {
-        this.name = newName;
+    public Sound(int newId, String newTitle, double newLat,double newLon, String newBackgroundLink, String newSoundLink, String newCreaterName) {
+        this.id = newId;
+        this.title = newTitle;
         this.latitude = newLat;
         this.longitude = newLon;
-        this.link = newLink;
+        this.backgroundLink = newBackgroundLink;
+        this.soundLink = newSoundLink;
+        this.createrName = newCreaterName;
     }
 
     public double getLatitude() {
@@ -22,19 +28,20 @@ public class Sound {
     public double getLongitude(){
         return this.longitude;
     }
-    public String getName() {
-        return this.name;
+    public String getTitle() {
+        return this.title;
     }
 
-    public String getLink() {
-        return link;
+    public String getBackgroundLink() {
+        return backgroundLink;
+    }
+    public String getSoundLink() {
+        return soundLink;
     }
 
     public String toString() {
-        return ""+this.name+" "+this.latitude+" "+this.longitude+" "+this.link;
+        return id + ": "+this.title +" "+this.latitude+" "+this.longitude+" "+this.backgroundLink+" "+this.soundLink+" "+this.createrName;
     }
-
-
 
     public double getDistance(double currLat, double currLon) {
 
