@@ -13,9 +13,17 @@ import android.widget.TextView;
 
 import com.google.android.gms.games.internal.GamesContract;
 
+import com.loopj.android.http.*;
 import org.json.JSONObject;
 
 import java.net.CookieStore;
+
+import cz.msebera.android.httpclient.entity.StringEntity;
+import cz.msebera.android.httpclient.impl.client.BasicCookieStore;
+import cz.msebera.android.httpclient.impl.cookie.BasicClientCookie;
+import cz.msebera.android.httpclient.message.BasicHeader;
+import cz.msebera.android.httpclient.protocol.BasicHttpContext;
+import cz.msebera.android.httpclient.protocol.HTTP;
 
 public class RegisterActivity extends AppCompatActivity {
 
