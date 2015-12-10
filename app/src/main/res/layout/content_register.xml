@@ -56,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nickname"
-                android:id="@+id/textNicknmae"
+                android:id="@+id/textNickname"
                 android:fontFamily="Avenir Medium"
                 android:textColor="#ffffff"
                 android:clickable="true" />
@@ -115,7 +115,7 @@
                 android:fontFamily="Avenir Medium"
                 android:textColor="#ffffff"
                 android:background="#000000"
-                android:onClick="doReg_click" />
+                android:onClick="saveUser_click" />
 
         </LinearLayout></ScrollView>
 
