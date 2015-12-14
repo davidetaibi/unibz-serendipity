@@ -78,7 +78,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private class doSignIn extends AsyncTask<String, Integer, Long> {
 
 
-        private static final String BASE_URL = "https://our.drupal.webservices.com";
+        private static final String BASE_URL = "https://sf.inf.unibz.it/serendipity/?q=my_endpoint/user/login.json";
         private final AsyncHttpClient client = new AsyncHttpClient();
 
 //        private static AsyncHttpClient client = new AsyncHttpClient();
