@@ -34,5 +34,6 @@
     <string name="button_contacts">Contacts</string>
 
     <string name="uploadfromsite">Please <a href="http://www.drupal.com/">Upload music from the website</a></string>
-
+    <string name="facebook_app_id">943613822373545</string>
+    <string name="title_activity_facebook">FacebookActivity</string>
 </resources>
