@@ -18,8 +18,7 @@
         android:layout_gravity="center_vertical"
         android:fontFamily="Avenir Medium"
         android:textColor="#ffffff"
-        android:background="#000000"
-        android:onClick="addCity_click"/>
+        android:background="#000000" />
 
     <ListView
         android:layout_width="wrap_content"
