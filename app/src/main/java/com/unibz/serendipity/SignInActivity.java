@@ -2,6 +2,7 @@ package com.unibz.serendipity;
 //El Tisho was here!!!
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -15,6 +16,14 @@ import android.os.AsyncTask;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareButton;
 import com.loopj.android.http.*;
 
 import org.json.JSONArray;
@@ -38,13 +47,14 @@ import cz.msebera.android.httpclient.message.BasicHeader;
 import cz.msebera.android.httpclient.protocol.HTTP;
 import cz.msebera.android.httpclient.util.EntityUtils;
 
-public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignInActivity extends AppCompatActivity implements View.OnClickListener,FacebookCallback<LoginResult> {
 
-
+    private CallbackManager fbCallbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_sign_in);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -52,6 +62,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         Button regButton= (Button) findViewById(R.id.regButton);
         regButton.setOnClickListener(this);
 
+        LoginButton loginButton = (LoginButton) findViewById(R.id.fb_login_button);
+        loginButton.setReadPermissions("public_profile");
+        loginButton.registerCallback(fbCallbackManager, this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +92,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private class doSignIn extends AsyncTask<String, Integer, Long> {
 
 
-        private static final String BASE_URL = "https://our.drupal.webservices.com";
+        private static final String BASE_URL = "http://sf.inf.unibz.it/serendipity/";
         private final AsyncHttpClient client = new AsyncHttpClient();
 
 //        private static AsyncHttpClient client = new AsyncHttpClient();
@@ -212,10 +225,40 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         EditText password = (EditText) findViewById(R.id.editPassword);
 
 
-
         new doSignIn().execute(username.getText().toString(), password.getText().toString());
 
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+        //manage login result
+        fbCallbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+    @Override
+    public void onSuccess(LoginResult loginResult) {
+        // App code
+
+        ShareLinkContent content = new ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse("http://sf.inf.unibz.it/serendipity/"))
+                .build();
+
+
+        ShareButton shareButton = (ShareButton) findViewById(R.id.fb_share_button);
+        shareButton.setShareContent(content);
+    }
+
+
+    @Override
+    public void onError(FacebookException exception) {
+        // App code
+        Log.e("FacebookException", exception.getMessage());
+    }
+    @Override
+    public void onCancel() {
+        Log.e("Facebook-Login", "canceled");
+    }
+
 
 
 }
