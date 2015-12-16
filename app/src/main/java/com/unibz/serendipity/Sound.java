@@ -1,5 +1,7 @@
 package com.unibz.serendipity;
 
+import android.location.Location;
+
 /**
  * Created by Cody on 26.10.15.
  */
@@ -47,9 +49,8 @@ public class Sound {
         return id + ": "+this.title +" "+this.latitude+" "+this.longitude+" "+this.backgroundLink+" "+this.soundLink+" "+this.createrName+" liked:"+liked+" likes:"+likesCount;
     }
 
-    public double getDistance(double currLat, double currLon) {
-
-        return distFrom(this.latitude,this.longitude,currLat,currLon);
+    public double getDistance(Location location) {
+        return distFrom(this.latitude, this.longitude, location.getLatitude(), location.getLongitude());
     }
 
     private double distFrom(double lat1, double lng1, double lat2, double lng2) {

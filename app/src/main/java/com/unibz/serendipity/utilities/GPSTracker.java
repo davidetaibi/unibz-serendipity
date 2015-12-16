@@ -5,6 +5,7 @@ package com.unibz.serendipity.utilities;
  */
 
 import android.app.AlertDialog;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,11 +13,22 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
+import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
-public class GPSTracker extends Service {
+import com.unibz.serendipity.R;
+import com.unibz.serendipity.Sound;
+
+public class GPSTracker extends Service implements LocationListener {
+    private final String LOG_TAG = "GPS_TRACKER";
+    public static final String ACTION = "com.unibz.serendipity.utilities.gpstracker.LocationUpdate";
+    public static final String EXTRA = "NEW_LOCATION";
+
+    private final int DISTANCE_TO_NOTIFY = 200;
 
     private final Context mContext;
     private LocationListener locationListener;
@@ -38,14 +50,21 @@ public class GPSTracker extends Service {
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1; // 10 meters
 
     // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 30; // 1 minute
+    private static final long MIN_TIME_BW_UPDATES = 1000 * 1; // 1 minute
 
     // Declaring a Location Manager
     protected LocationManager locationManager;
+    private final NotificationManager mNotificationManager;
+    private final LocalBroadcastManager localBroadcastManager;
 
-    public GPSTracker(Context context, LocationListener newListener) {
+    public GPSTracker(Context context) {
         this.mContext = context;
-        this.locationListener = newListener;
+        this.locationListener = this;
+
+        mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
+
         getLocation();
     }
 
@@ -190,7 +209,62 @@ public class GPSTracker extends Service {
         return null;
     }
 
+    @Override
+    public void onLocationChanged(Location location) {
+        //Toast.makeText(mContext, "LocationChanged", Toast.LENGTH_LONG).show();
+        Log.d(LOG_TAG, "Location changed: lat: " + location.getLatitude() + "  long: " + location.getLongitude());
 
+        Sound nearest = null;
+        double distance = 0.0;
+        for (int i = 0; i < SoundList.soundList.size(); i++) {
+            Sound sound = SoundList.soundList.get(i);
+            distance  = sound.getDistance(location);
 
+            if(nearest == null && distance <= DISTANCE_TO_NOTIFY) {
+                Log.d(LOG_TAG, "Distance to " + sound.getTitle() + ": " + distance);
+                nearest = sound;
+            } else if (nearest != null && distance < nearest.getDistance(location)) {
+                Log.d(LOG_TAG, "Distance to " + sound.getTitle() + ": " + distance);
+                nearest = sound;
+            }
+        }
 
+        if (nearest != null) {
+            notifyUser("Serendipity", "You're " + (int) nearest.getDistance(location) + " m away from " + nearest.getTitle() + ".");
+        }
+
+        Intent postUpdateIntent = new Intent(ACTION);
+        postUpdateIntent.putExtra(EXTRA, location);
+        localBroadcastManager.sendBroadcast(postUpdateIntent);
+    }
+
+    private void notifyUser(String title, String contentText) {
+        NotificationCompat.Builder mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(mContext)
+                .setSmallIcon(R.drawable.notificationicon)
+                .setContentTitle(title)
+                .setContentText(contentText);
+
+// Sets an ID for the notification, so it can be updated
+        int notifyID = 1;
+
+        mNotificationManager.notify(
+                notifyID,
+                mBuilder.build());
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        //Toast.makeText(getApplicationContext(), "provider disabled", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+        // Toast.makeText(getApplicationContext(), "provider enabled", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        //  Toast.makeText(getApplicationContext(), "status changed", Toast.LENGTH_LONG).show();
+    }
 }
