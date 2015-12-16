@@ -1,5 +1,6 @@
 package com.unibz.serendipity;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +24,7 @@ import com.unibz.serendipity.utilities.SoundList;
 import java.io.IOException;
 import java.util.LinkedList;
 
-public class ListenActivity extends AppCompatActivity {
+public class ListenActivity extends Activity {
     private final String LOG_TAG = "LISTEN_ACTIVITY";
     private final int DISTANCE_TO_SOUND = 10;
     private final int DISTANCE_TO_BACKGROUND = 200;
@@ -40,23 +41,11 @@ public class ListenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listen);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
 
         mediaPlayer = null;
         currentSound = null;
         prepared = false;
-        playButton = (ImageButton) findViewById(R.id.play_button);
+        //playButton = (ImageButton) findViewById(R.id.play_button);
 
         locationChangeReceiver = new BroadcastReceiver() {
             @Override

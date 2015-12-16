@@ -1,25 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:fitsSystemWindows="true"
-    tools:context="com.unibz.serendipity.ListenActivity">
+    tools:context="com.unibz.serendipity.ListenActivity"
+    android:theme="@android:style/Theme.Black.NoTitleBar"
+    android:orientation="vertical"
+    android:weightSum="10">
 
-    <android.support.design.widget.AppBarLayout android:layout_height="wrap_content"
-        android:layout_width="match_parent" android:theme="@style/AppTheme.AppBarOverlay">
+    <RelativeLayout
+        android:layout_weight="3"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
 
-        <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
-            android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary" app:popupTheme="@style/AppTheme.PopupOverlay" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/play_main_image"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/nosound"
+            android:background="@android:color/black"/>
 
-    </android.support.design.widget.AppBarLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="SONG TITLE"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:textStyle="bold"
+            android:textSize="30sp"/>
 
-    <include layout="@layout/content_listen" />
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/sound_play_pause_button"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_media_play"
+            android:background="@android:color/black"/>
+    </RelativeLayout>
 
-    <android.support.design.widget.FloatingActionButton android:id="@+id/fab"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end" android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
+    <RelativeLayout
+        android:layout_weight="7"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:background="@android:color/white">
 
-</android.support.design.widget.CoordinatorLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="AUTHOR"
+            android:id="@+id/song_author_view"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:textColor="@android:color/black"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sound_previous_button"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="false"
+            android:layout_marginStart="50dp"
+            android:src="@drawable/back"
+            android:background="@android:color/white"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sound_next_button"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="false"
+            android:layout_marginStart="30dp"
+            android:layout_toRightOf="@+id/sound_previous_button"
+            android:src="@drawable/forward"
+            android:background="@android:color/white"/>
+    </RelativeLayout>
+
+</LinearLayout>

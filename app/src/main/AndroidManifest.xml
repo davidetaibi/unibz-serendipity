@@ -72,8 +72,8 @@
         <activity
             android:name=".ListenActivity"
             android:label="@string/title_activity_listen"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
         </activity>
         <activity
             android:name=".CitiesActivity"
