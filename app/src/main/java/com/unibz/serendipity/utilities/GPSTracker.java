@@ -218,19 +218,20 @@ public class GPSTracker extends Service implements LocationListener {
         double distance = 0.0;
         for (int i = 0; i < SoundList.soundList.size(); i++) {
             Sound sound = SoundList.soundList.get(i);
-            distance  = sound.getDistance(location);
+            sound.setDistance(location);
+            distance  = sound.getDistance();
 
             if(nearest == null && distance <= DISTANCE_TO_NOTIFY) {
                 Log.d(LOG_TAG, "Distance to " + sound.getTitle() + ": " + distance);
                 nearest = sound;
-            } else if (nearest != null && distance < nearest.getDistance(location)) {
+            } else if (nearest != null && distance < nearest.getDistance()) {
                 Log.d(LOG_TAG, "Distance to " + sound.getTitle() + ": " + distance);
                 nearest = sound;
             }
         }
 
         if (nearest != null) {
-            notifyUser("Serendipity", "You're " + (int) nearest.getDistance(location) + " m away from " + nearest.getTitle() + ".");
+            notifyUser("Serendipity", "You're " + (int) nearest.getDistance() + " m away from " + nearest.getTitle() + ".");
         }
 
         Intent postUpdateIntent = new Intent(ACTION);

@@ -22,6 +22,9 @@ import com.unibz.serendipity.utilities.GPSTracker;
 import com.unibz.serendipity.utilities.SoundList;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 
 public class ListenActivity extends Activity {
@@ -29,12 +32,10 @@ public class ListenActivity extends Activity {
     private final int DISTANCE_TO_SOUND = 10;
     private final int DISTANCE_TO_BACKGROUND = 200;
 
-    private GPSTracker gpsTracker;
     private MediaPlayer mediaPlayer;
     private boolean prepared;
     private Sound currentSound;
-    private LinkedList<Sound> backgroundSoundList = new LinkedList<Sound>();
-    private ImageButton playButton;
+    private LinkedList<Sound> reachableSoundList;
     private BroadcastReceiver locationChangeReceiver;
 
     @Override
@@ -45,6 +46,7 @@ public class ListenActivity extends Activity {
         mediaPlayer = null;
         currentSound = null;
         prepared = false;
+        reachableSoundList = new LinkedList<>();
         //playButton = (ImageButton) findViewById(R.id.play_button);
 
         locationChangeReceiver = new BroadcastReceiver() {
@@ -56,6 +58,52 @@ public class ListenActivity extends Activity {
                 }
             }
         };
+    }
+
+    public void locationChanged(Location location) {
+        //Toast.makeText(this, "LocationChanged", Toast.LENGTH_LONG).show();
+        //Log.d(LOG_TAG, "Location changed: lat: " + location.getLatitude() + "  long: " + location.getLongitude());
+
+        reachableSoundList.clear();
+        for (int i = 0; i < SoundList.soundList.size(); i++) {
+            Sound sound = SoundList.soundList.get(i);
+            if (sound.getDistance() <= DISTANCE_TO_BACKGROUND) {
+                reachableSoundList.add(sound);
+            }
+
+            Collections.sort(reachableSoundList, new Comparator<Sound>() {
+                @Override
+                public int compare(Sound sound1, Sound sound2) {
+                    return Double.compare(sound1.getDistance(), sound2.getDistance());
+                }
+            });
+
+            /*if (distance <= DISTANCE_TO_SOUND) {
+                Log.d(LOG_TAG, "Distance to " + SoundList.soundList.get(i).getTitle() + ": " + distance);
+                if (currentSound != sound) {
+                    currentSound = sound;
+                    prepareSound();
+                }
+            } else {
+                if (currentSound == sound) {
+                    currentSound = null;
+                    prepareSound();
+                }
+            }
+            if(distance > DISTANCE_TO_SOUND && distance <= DISTANCE_TO_NOTIFY) {
+                if (backgroundSoundList.indexOf(sound) == -1) {
+                    backgroundSoundList.add(sound);
+                }
+                Log.d(LOG_TAG, "Distance to " + SoundList.soundList.get(i).getTitle() + ": " + distance);
+                notifyUser("Serendipity", "You're " + (int)distance + " m away from " + SoundList.soundList.get(i).getTitle() + ".");
+            } else if (backgroundSoundList.indexOf(sound) != -1) {
+                backgroundSoundList.remove(sound);
+            }*/
+        }
+
+        /*for (Sound sound : reachableSoundList) {
+            Log.d(LOG_TAG, sound.getDistance() + "  " + sound.getTitle());
+        }*/
     }
 
     @Override
@@ -72,9 +120,9 @@ public class ListenActivity extends Activity {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(locationChangeReceiver);
     }
 
-    public void clicked(View view) {
+    /*public void clicked(View view) {
         switch (view.getId()) {
-            case R.id.play_button:
+            case R.id.sound_play_pause_button:
                 playSound();
                 break;
 
@@ -115,40 +163,7 @@ public class ListenActivity extends Activity {
         } else {
             playButton.setVisibility(View.GONE);
         }
-    }
-
-    public void locationChanged(Location location) {
-        Toast.makeText(this, "LocationChanged", Toast.LENGTH_LONG).show();
-        Log.d(LOG_TAG, "Location changed: lat: " + location.getLatitude() + "  long: " + location.getLongitude());
-
-        double distance = 0.0;
-        for (int i = 0; i < SoundList.soundList.size(); i++) {
-            Sound sound = SoundList.soundList.get(i);
-            distance  = sound.getDistance(location);
-
-            /*if (distance <= DISTANCE_TO_SOUND) {
-                Log.d(LOG_TAG, "Distance to " + SoundList.soundList.get(i).getTitle() + ": " + distance);
-                if (currentSound != sound) {
-                    currentSound = sound;
-                    prepareSound();
-                }
-            } else {
-                if (currentSound == sound) {
-                    currentSound = null;
-                    prepareSound();
-                }
-            }
-            if(distance > DISTANCE_TO_SOUND && distance <= DISTANCE_TO_NOTIFY) {
-                if (backgroundSoundList.indexOf(sound) == -1) {
-                    backgroundSoundList.add(sound);
-                }
-                Log.d(LOG_TAG, "Distance to " + SoundList.soundList.get(i).getTitle() + ": " + distance);
-                notifyUser("Serendipity", "You're " + (int)distance + " m away from " + SoundList.soundList.get(i).getTitle() + ".");
-            } else if (backgroundSoundList.indexOf(sound) != -1) {
-                backgroundSoundList.remove(sound);
-            }*/
-        }
-    }
+    }*/
 
     @Override
     protected void onDestroy() {
