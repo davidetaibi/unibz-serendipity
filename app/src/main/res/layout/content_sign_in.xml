@@ -22,7 +22,33 @@
         android:layout_alignParentBottom="true"
         android:textColor="#ffffff"
         android:fontFamily="Avenir Medium"
-        android:gravity="left">
+        android:gravity="left"></ScrollView>
+
+    <Button
+        android:id="@+id/regButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register"
+        android:linksClickable="true"
+        android:textColor="#ffffff"
+        android:textStyle="italic"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:background="#000000"
+        android:layout_centerVertical="true"
+        android:layout_alignEnd="@+id/linearLayout">
+    </Button>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/googleplus"
+        android:layout_alignBottom="@+id/scrollView"
+        android:background="#000000"
+        android:clickable="true"
+        android:src="@drawable/gplus"
+        android:layout_toStartOf="@+id/regButton"
+        android:layout_below="@+id/linearLayout" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,7 +58,9 @@
 
         android:orientation="vertical"
 
-        >
+        android:layout_below="@+id/regButton"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/linearLayout">
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -65,31 +93,6 @@
             android:background="#000000"
             android:onClick="doSignIn_click"/>
 
-    </LinearLayout></ScrollView>
-
-    <Button
-        android:id="@+id/regButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/register"
-        android:linksClickable="true"
-        android:textColor="#ffffff"
-        android:textStyle="italic"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
-        android:background="#000000">
-    </Button>
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/googleplus"
-        android:layout_alignBottom="@+id/scrollView"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="63dp"
-        android:background="#000000"
-        android:clickable="true"
-        android:src="@drawable/common_signin_btn_icon_normal_light" />
+    </LinearLayout>
 
 </RelativeLayout>
