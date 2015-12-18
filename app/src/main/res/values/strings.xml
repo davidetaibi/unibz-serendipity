@@ -37,4 +37,7 @@
     <string name="uploadfromsite">Please <a href="http://www.drupal.com/">Upload music from the website</a></string>
     <string name="register">New User <a href="RegisterActivity">Register Here</a></string>
 
+    <string name="no_sound">NO SOUND</string>
+    <string name="around">AROUND</string>
+
 </resources>
