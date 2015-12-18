@@ -1,5 +1,6 @@
 package com.unibz.serendipity;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -28,14 +29,14 @@ import cz.msebera.android.httpclient.message.BasicHeader;
 import cz.msebera.android.httpclient.protocol.BasicHttpContext;
 import cz.msebera.android.httpclient.protocol.HTTP;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

@@ -35,6 +35,6 @@
     <string name="button_contacts">Contacts</string>
 
     <string name="uploadfromsite">Please <a href="http://www.drupal.com/">Upload music from the website</a></string>
-    <string name="register">New User <a href="RegisterActivity">Register Here</a></string>
+    <string name="register">New User? <a href="RegisterActivity">Register Here</a></string>
 
 </resources>
