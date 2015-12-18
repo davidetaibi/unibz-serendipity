@@ -58,6 +58,11 @@ public class ListenActivity extends Activity {
                 }
             }
         };
+
+        Location currentLocation = GPSTracker.getCurrentLocation();
+        if (currentLocation != null) {
+            locationChanged(currentLocation);
+        }
     }
 
     public void locationChanged(Location location) {
@@ -77,28 +82,6 @@ public class ListenActivity extends Activity {
                     return Double.compare(sound1.getDistance(), sound2.getDistance());
                 }
             });
-
-            /*if (distance <= DISTANCE_TO_SOUND) {
-                Log.d(LOG_TAG, "Distance to " + SoundList.soundList.get(i).getTitle() + ": " + distance);
-                if (currentSound != sound) {
-                    currentSound = sound;
-                    prepareSound();
-                }
-            } else {
-                if (currentSound == sound) {
-                    currentSound = null;
-                    prepareSound();
-                }
-            }
-            if(distance > DISTANCE_TO_SOUND && distance <= DISTANCE_TO_NOTIFY) {
-                if (backgroundSoundList.indexOf(sound) == -1) {
-                    backgroundSoundList.add(sound);
-                }
-                Log.d(LOG_TAG, "Distance to " + SoundList.soundList.get(i).getTitle() + ": " + distance);
-                notifyUser("Serendipity", "You're " + (int)distance + " m away from " + SoundList.soundList.get(i).getTitle() + ".");
-            } else if (backgroundSoundList.indexOf(sound) != -1) {
-                backgroundSoundList.remove(sound);
-            }*/
         }
 
         /*for (Sound sound : reachableSoundList) {

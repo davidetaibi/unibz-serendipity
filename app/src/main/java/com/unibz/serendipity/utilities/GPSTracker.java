@@ -56,6 +56,7 @@ public class GPSTracker extends Service implements LocationListener {
     protected LocationManager locationManager;
     private final NotificationManager mNotificationManager;
     private final LocalBroadcastManager localBroadcastManager;
+    private static Location currentLocation = null;
 
     public GPSTracker(Context context) {
         this.mContext = context;
@@ -222,10 +223,10 @@ public class GPSTracker extends Service implements LocationListener {
             distance  = sound.getDistance();
 
             if(nearest == null && distance <= DISTANCE_TO_NOTIFY) {
-                Log.d(LOG_TAG, "Distance to " + sound.getTitle() + ": " + distance);
+                //Log.d(LOG_TAG, "Distance to " + sound.getTitle() + ": " + distance);
                 nearest = sound;
             } else if (nearest != null && distance < nearest.getDistance()) {
-                Log.d(LOG_TAG, "Distance to " + sound.getTitle() + ": " + distance);
+                //Log.d(LOG_TAG, "Distance to " + sound.getTitle() + ": " + distance);
                 nearest = sound;
             }
         }
@@ -237,6 +238,8 @@ public class GPSTracker extends Service implements LocationListener {
         Intent postUpdateIntent = new Intent(ACTION);
         postUpdateIntent.putExtra(EXTRA, location);
         localBroadcastManager.sendBroadcast(postUpdateIntent);
+
+        currentLocation = location;
     }
 
     private void notifyUser(String title, String contentText) {
@@ -267,5 +270,9 @@ public class GPSTracker extends Service implements LocationListener {
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
         //  Toast.makeText(getApplicationContext(), "status changed", Toast.LENGTH_LONG).show();
+    }
+
+    public static Location getCurrentLocation() {
+        return currentLocation;
     }
 }
