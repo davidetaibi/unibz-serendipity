@@ -44,24 +44,6 @@
         android:clickable="true"
         android:editable="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nickname"
-        android:id="@+id/editNickname"
-        android:fontFamily="Avenir Medium"
-        android:textColor="#ffffff"
-        android:clickable="true"
-        android:editable="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email Address"
-        android:id="@+id/editEmail"
-        android:fontFamily="Avenir Medium"
-        android:textColor="#ffffff"
-        android:clickable="true" />
 
     <EditText
         android:layout_width="wrap_content"
