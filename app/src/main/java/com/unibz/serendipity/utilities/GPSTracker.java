@@ -47,10 +47,10 @@ public class GPSTracker extends Service implements LocationListener {
     double longitude; // longitude
 
     // The minimum distance to change Updates in meters
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1; // 10 meters
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 0; // 10 meters
 
     // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 1; // 1 minute
+    private static final long MIN_TIME_BW_UPDATES = 1000;
 
     // Declaring a Location Manager
     protected LocationManager locationManager;
@@ -213,7 +213,7 @@ public class GPSTracker extends Service implements LocationListener {
     @Override
     public void onLocationChanged(Location location) {
         //Toast.makeText(mContext, "LocationChanged", Toast.LENGTH_LONG).show();
-        Log.d(LOG_TAG, "Location changed: lat: " + location.getLatitude() + "  long: " + location.getLongitude());
+        //Log.d(LOG_TAG, "Location changed: lat: " + location.getLatitude() + "  long: " + location.getLongitude());
 
         Sound nearest = null;
         double distance = 0.0;

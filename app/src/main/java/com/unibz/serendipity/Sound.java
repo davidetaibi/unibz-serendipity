@@ -40,6 +40,10 @@ public class Sound {
         return this.title;
     }
 
+    public String getCreaterName() {
+        return createrName;
+    }
+
     public String getBackgroundLink() {
         return backgroundLink;
     }
