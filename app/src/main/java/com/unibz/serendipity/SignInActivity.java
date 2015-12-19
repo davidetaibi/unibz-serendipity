@@ -183,6 +183,18 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         public void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+            url = ";";
+            params = new RequestParams();
+            try{
+                EditText username = (EditText) findViewById(R.id.editName);
+                EditText password = (EditText) findViewById(R.id.editPassword);
+               params.put("username", username.getText().toString().trim());
+               params.put("password", password.getText().toString().trim());
+
+               //HttpResponse response =  client.
+            }catch (Exception e){
+                Log.v("Error logging in : ", e.getMessage());
+            }
             client.get(getAbsoluteUrl(url), params, responseHandler);
         }
 
