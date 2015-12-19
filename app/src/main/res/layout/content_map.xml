@@ -45,7 +45,9 @@
     android:clickable="true"
     android:gravity="right"
         android:layout_above="@+id/lvButton"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/searchButton"
+        android:layout_alignStart="@+id/searchButton" />
 
     <ImageButton
     android:layout_width="150dp"

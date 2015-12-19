@@ -139,7 +139,7 @@
                 android:text="Password"
                 android:id="@+id/textPass"
                 android:fontFamily="Avenir Medium"
-                android:password="true"
+                android:password="false"
                 android:textColor="#ffffff"
                 android:clickable="true" />
 
