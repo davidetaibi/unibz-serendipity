@@ -183,28 +183,55 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         public void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
-            url = ";";
+            url = "https://sf.inf.unibz.it/serendipity/?q=my_endpoint/user/login.json";
             params = new RequestParams();
             try{
                 EditText username = (EditText) findViewById(R.id.editName);
                 EditText password = (EditText) findViewById(R.id.editPassword);
                params.put("username", username.getText().toString().trim());
                params.put("password", password.getText().toString().trim());
-
-               //HttpResponse response =  client.
             }catch (Exception e){
-                Log.v("Error logging in : ", e.getMessage());
+                Log.v("Error entering data : ", e.getMessage());
             }
+            responseHandler = new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                    //super.onSuccess(statusCode, headers, responseString);
+
+                    //Log.e(TAG, "sucess: " + responseString);
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                    //Log.e(TAG, "failure: " + responseString);
+                    //Log.e(TAG, "failurecode: " + statusCode);
+
+                    //super.onFailure(statusCode, headers, responseString, throwable);
+                }
+            };
             client.get(getAbsoluteUrl(url), params, responseHandler);
         }
 
         public void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+            //this.setHeaders();
+            StringEntity se = null;
+            try {
+                se = new StringEntity(params.toString(), HTTP.UTF_8);
+            } catch (Exception e) {
+                e.getMessage();
+            }
+            se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+
+            client.post(null, getAbsoluteUrl(url), se, "application/json", responseHandler);
             client.post(getAbsoluteUrl(url), params, responseHandler);
         }
 
         private String getAbsoluteUrl(String relativeUrl) {
             return BASE_URL + relativeUrl;
         }
+
+
+
 
 
         protected void onPostExecute(Long result){
@@ -217,7 +244,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    public void doSignIn_click(View view){
+    public void doSignIn_click(View view) {
 
         EditText username = (EditText) findViewById(R.id.editName);
         EditText password = (EditText) findViewById(R.id.editPassword);
