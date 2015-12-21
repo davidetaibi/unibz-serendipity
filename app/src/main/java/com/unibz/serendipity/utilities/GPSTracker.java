@@ -6,6 +6,7 @@ package com.unibz.serendipity.utilities;
 
 import android.app.AlertDialog;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,6 +14,8 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
@@ -20,6 +23,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
+import com.unibz.serendipity.ListenActivity;
 import com.unibz.serendipity.R;
 import com.unibz.serendipity.Sound;
 
@@ -57,6 +61,7 @@ public class GPSTracker extends Service implements LocationListener {
     private final NotificationManager mNotificationManager;
     private final LocalBroadcastManager localBroadcastManager;
     private static Location currentLocation = null;
+    private static Sound currentNotify = null;
 
     public GPSTracker(Context context) {
         this.mContext = context;
@@ -232,7 +237,11 @@ public class GPSTracker extends Service implements LocationListener {
         }
 
         if (nearest != null) {
-            notifyUser("Serendipity", "You're " + (int) nearest.getDistance() + " m away from " + nearest.getTitle() + ".");
+            notifyUser(nearest);
+            //notifyUser("Serendipity", "You're " + (int) nearest.getDistance() + " m away from " + nearest.getTitle() + ".");
+        } else {
+            currentNotify = null;
+            mNotificationManager.cancelAll();
         }
 
         Intent postUpdateIntent = new Intent(ACTION);
@@ -242,14 +251,27 @@ public class GPSTracker extends Service implements LocationListener {
         currentLocation = location;
     }
 
-    private void notifyUser(String title, String contentText) {
+    //private void notifyUser(String title, String contentText) {
+    private void notifyUser(Sound soundToNotify) {
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Intent contentIntent = new Intent(mContext, ListenActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, contentIntent, 0);
+
         NotificationCompat.Builder mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(mContext)
                 .setSmallIcon(R.drawable.notificationicon)
-                .setContentTitle(title)
-                .setContentText(contentText);
+                .setContentTitle("Serendipity")
+                .setContentText("You're " + (int) soundToNotify.getDistance() + "m away from " + soundToNotify.getTitle())
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+
+        if (currentNotify == null || currentNotify != soundToNotify) {
+            mBuilder.setSound(alarmSound);
+            currentNotify = soundToNotify;
+        }
 
 // Sets an ID for the notification, so it can be updated
-        int notifyID = 1;
+            int notifyID = 1;
 
         mNotificationManager.notify(
                 notifyID,
