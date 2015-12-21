@@ -36,6 +36,10 @@
 
     <string name="uploadfromsite">Please <a href="http://www.drupal.com/">Upload your song from the website</a></string>
     <string name="register">New User <a href="RegisterActivity">Register Here</a></string>
+    <string name="contacts">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut tempus neque, non aliquam velit. Morbi eget molestie purus. <p>Aenean auctor, justo non aliquam viverra, tortor turpis porttitor neque, quis vulputate augue enim vitae ligula.</p></string>
+    <string name="rule1">1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut tempus neque, non aliquam velit. Morbi eget molestie purus. Aenean auctor, justo non aliquam viverra, tortor turpis porttitor neque, quis vulputate augue enim vitae ligula.</string>
+    <string name="rule2">2. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut tempus neque, non aliquam velit. Morbi eget molestie purus. Aenean auctor, justo non aliquam viverra, tortor turpis porttitor neque, quis vulputate augue enim vitae ligula.</string>
+    <string name="rule3">3. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut tempus neque, non aliquam velit. Morbi eget molestie purus. Aenean auctor, justo non aliquam viverra, tortor turpis porttitor neque, quis vulputate augue enim vitae ligula.</string>
 
     <string name="no_sound">NO SOUND</string>
     <string name="around">AROUND</string>

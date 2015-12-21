@@ -13,9 +13,26 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="some text here..."
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="186dp"
-        android:textColor="#ffffff" />
+        android:text="@string/rule1"
+        android:textColor="#ffffff"
+        android:id="@+id/rule1"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rule2"
+        android:textColor="#ffffff"
+        android:id="@+id/rule2"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/rule1"
+        android:layout_alignStart="@+id/rule3" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rule3"
+        android:textColor="#ffffff"
+        android:id="@+id/rule3"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/rule2" />
 </RelativeLayout>
