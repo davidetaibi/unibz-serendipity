@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:text="@string/about"
         android:textColor="#ffffff"
+        android:layout_marginBottom="136dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="302dp" />
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
