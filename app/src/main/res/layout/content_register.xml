@@ -53,8 +53,8 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nickname"
-            android:id="@+id/textNickname"
+            android:text="Username"
+            android:id="@+id/textUsername"
             android:fontFamily="Avenir Medium"
             android:textColor="#ffffff"
             android:clickable="true"

@@ -176,7 +176,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             url = "https://sf.inf.unibz.it/serendipity/?q=my_endpoint/user/login.json";
             params = new RequestParams();
             try{
-                EditText username = (EditText) findViewById(R.id.editName);
+                EditText username = (EditText) findViewById(R.id.editUsername);
                 EditText password = (EditText) findViewById(R.id.editPassword);
                params.put("username", username.getText().toString().trim());
                params.put("password", password.getText().toString().trim());
@@ -236,7 +236,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     public void doSignIn_click(View view) {
 
-        EditText username = (EditText) findViewById(R.id.editName);
+        EditText username = (EditText) findViewById(R.id.editUsername);
         EditText password = (EditText) findViewById(R.id.editPassword);
 
 
