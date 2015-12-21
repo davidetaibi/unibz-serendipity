@@ -23,6 +23,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SignInActivity"
+            android:screenOrientation="landscape" />
+
+        <activity
+            android:name=".RegisterActivity"
+            android:screenOrientation="landscape" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -59,12 +66,6 @@
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".SignInActivity"
-            android:label="@string/title_activity_sign_in"
-            android:screenOrientation="landscape"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <activity
             android:name=".ListenActivity"
             android:label="@string/title_activity_listen"
             android:screenOrientation="landscape"
@@ -79,12 +80,6 @@
         <activity
             android:name=".UploadActivity"
             android:label="@string/title_activity_upload"
-            android:screenOrientation="landscape"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <activity
-            android:name=".RegisterActivity"
-            android:label="@string/title_activity_register"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
