@@ -33,7 +33,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
 
-        Button searchButton= (Button) findViewById(R.id.searchButton);
+        /*Button searchButton= (Button) findViewById(R.id.searchButton);
         searchButton.setOnClickListener((OnClickListener) this);
         Button playButton= (Button) findViewById(R.id.playButton);
         playButton.setOnClickListener((OnClickListener) this);
@@ -60,7 +60,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             else if (v.getId() == R.id.lvButton) {
                 Intent intent = new Intent(MapsActivity.this, HomePageActivity.class);
                 startActivity(intent);
-            }
+            }*/
 
     }
 
