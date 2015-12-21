@@ -71,6 +71,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         if(v.getId() == R.id.regButton){
             Intent intent = new Intent(SignInActivity.this, RegisterActivity.class);
             startActivity(intent);
+            finish();
     }else{
             return;
         }
