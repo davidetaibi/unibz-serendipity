@@ -1,30 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_cities" tools:context="com.unibz.serendipity.CitiesActivity"
-    android:background="@drawable/bgimg">
+    tools:showIn="@layout/activity_cities"
+    tools:context="com.unibz.serendipity.CitiesActivity"
+    >
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add New"
-        android:id="@+id/addNew"
-        android:layout_gravity="center_vertical"
         android:fontFamily="Avenir Medium"
         android:textColor="#ffffff"
-        android:background="#000000" />
+        android:orientation="vertical"
+        android:background="@android:color/black" >
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="255dp"
-        android:id="@+id/listView"
-        android:textColor="#ffffff"
-        android:fontFamily="Avenir Medium"
-        android:layout_gravity="bottom" />
-</LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/background_top"
+            android:adjustViewBounds="true"/>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/cities_list_view"
+            android:textColor="#ffffff"
+            android:fontFamily="Avenir Medium"
+            android:padding="20dp"
+            android:dividerPadding="10dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/background_bottom"
+            android:adjustViewBounds="true"/>
+
+    </LinearLayout>
+</ScrollView>
