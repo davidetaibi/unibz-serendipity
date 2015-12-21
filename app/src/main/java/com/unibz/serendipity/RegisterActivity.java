@@ -40,18 +40,6 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
     }
 
     public void saveUser_click(View view){
@@ -124,7 +112,7 @@ public class RegisterActivity extends AppCompatActivity {
 //                httpPost.setEntity(se);
 
 //                BasicHttpContext mHttpContext = new BasicHttpContext();
-                //CookieStore mCookieStore = new BasicCookieStore();
+            //CookieStore mCookieStore = new BasicCookieStore();
 
 //                BasicClientCookie cookie = new BasicClientCookie(session_name, session_id);
 //                cookie.setVersion(0);
@@ -144,5 +132,5 @@ public class RegisterActivity extends AppCompatActivity {
             return new Integer(0);
         }
     }
-    }
+}
 
