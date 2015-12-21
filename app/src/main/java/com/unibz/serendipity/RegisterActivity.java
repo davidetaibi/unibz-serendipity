@@ -1,6 +1,5 @@
 package com.unibz.serendipity;
 
-import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

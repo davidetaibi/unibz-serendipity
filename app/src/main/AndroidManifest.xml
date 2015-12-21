@@ -13,12 +13,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-
-        <!--android:screenOrientation="portrait"-->
-
         <activity
             android:name=".MainActivity"
-             >
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -76,7 +73,7 @@
             android:name=".ListenActivity"
             android:label="@string/title_activity_listen"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
         </activity>
         <activity
             android:name=".CitiesActivity"
@@ -90,8 +87,6 @@
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
-
-        <!--android:theme="@style/AppTheme.NoActionBar"-->
         <activity
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register"

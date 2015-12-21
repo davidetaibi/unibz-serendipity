@@ -1,5 +1,7 @@
 package com.unibz.serendipity;
 
+import android.location.Location;
+
 /**
  * Created by Cody on 26.10.15.
  */
@@ -11,8 +13,11 @@ public class Sound {
     private String backgroundLink;
     private String soundLink;
     private String createrName;
+    private boolean liked;
+    private int likesCount;
+    private double distanceToCurrent;
 
-    public Sound(int newId, String newTitle, double newLat,double newLon, String newBackgroundLink, String newSoundLink, String newCreaterName) {
+    public Sound(int newId, String newTitle, double newLat,double newLon, String newBackgroundLink, String newSoundLink, String newCreaterName, boolean newLiked, int newLikesCount) {
         this.id = newId;
         this.title = newTitle;
         this.latitude = newLat;
@@ -20,6 +25,9 @@ public class Sound {
         this.backgroundLink = newBackgroundLink;
         this.soundLink = newSoundLink;
         this.createrName = newCreaterName;
+        this.liked = newLiked;
+        this.likesCount = newLikesCount;
+        distanceToCurrent = -1;
     }
 
     public double getLatitude() {
@@ -32,6 +40,10 @@ public class Sound {
         return this.title;
     }
 
+    public String getCreaterName() {
+        return createrName;
+    }
+
     public String getBackgroundLink() {
         return backgroundLink;
     }
@@ -40,12 +52,15 @@ public class Sound {
     }
 
     public String toString() {
-        return id + ": "+this.title +" "+this.latitude+" "+this.longitude+" "+this.backgroundLink+" "+this.soundLink+" "+this.createrName;
+        return id + ": "+this.title +" "+this.latitude+" "+this.longitude+" "+this.backgroundLink+" "+this.soundLink+" "+this.createrName+" liked:"+liked+" likes:"+likesCount;
     }
 
-    public double getDistance(double currLat, double currLon) {
+    public void setDistance(Location location) {
+        distanceToCurrent = distFrom(this.latitude, this.longitude, location.getLatitude(), location.getLongitude());
+    }
 
-        return distFrom(this.latitude,this.longitude,currLat,currLon);
+    public double getDistance() {
+        return distanceToCurrent;
     }
 
     private double distFrom(double lat1, double lng1, double lat2, double lng2) {
