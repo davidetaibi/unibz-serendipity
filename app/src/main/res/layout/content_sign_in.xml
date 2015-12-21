@@ -30,8 +30,8 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name"
-            android:id="@+id/editName"
+            android:text="Username"
+            android:id="@+id/editUsername"
             android:layout_above="@+id/textView2"
             android:fontFamily="Avenir Medium"
             android:textColor="#ffffff"

@@ -45,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
     public void saveUser_click(View view){
         EditText textName = (EditText) findViewById(R.id.textName);
         EditText textSurname = (EditText) findViewById(R.id.textSurname);
-        EditText textNickname = (EditText) findViewById(R.id.textNickname);
+        EditText textUsername = (EditText) findViewById(R.id.textUsername);
         EditText textGender = (EditText) findViewById(R.id.textGender);
         EditText textEmail = (EditText) findViewById(R.id.textEmail);
         EditText textCity = (EditText) findViewById(R.id.textCity);
@@ -54,13 +54,13 @@ public class RegisterActivity extends AppCompatActivity {
 
         String name=textName.getText().toString().trim();
         String surname=textSurname.getText().toString().trim();
-        String nickname=textNickname.getText().toString().trim();
+        String username=textUsername.getText().toString().trim();
         String gender=textGender.getText().toString().trim();
         String email=textEmail.getText().toString().trim();
         String city=textCity.getText().toString().trim();
         String PS=textPS.getText().toString().trim();
         String pass=textPassword.getText().toString().trim();
-        new addUserTask().execute(name, nickname, email);
+        new addUserTask().execute(name, surname, username, gender, email, city, PS, pass);
     }
 
     private class addUserTask extends AsyncTask<String, Void, Integer>{
@@ -69,7 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
 //            String session_id=params[1];
             String name = params[0];
             String surname = params[1];
-            String nickname = params[2];
+            String username = params[2];
             String gender = params[3];
             String email = params[4];
             String city = params[5];
@@ -92,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity {
                 List<NameValuePair> nameValuePairs  =   new ArrayList<NameValuePair>();
                 nameValuePairs.add( new BasicNameValuePair("account[username]", name));
                 nameValuePairs.add( new BasicNameValuePair("account[surname]", surname));
-                nameValuePairs.add( new BasicNameValuePair("account[nickname]", nickname));
+                nameValuePairs.add( new BasicNameValuePair("account[username]", username));
                 nameValuePairs.add( new BasicNameValuePair("account[gender]", gender));
                 nameValuePairs.add( new BasicNameValuePair("account[email]", email));
                 nameValuePairs.add( new BasicNameValuePair("account[city]", city));
