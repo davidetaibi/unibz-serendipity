@@ -53,7 +53,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private class doSignIn extends AsyncTask<String, Integer, Long> {
 
 
-        private static final String BASE_URL = "https://sf.inf.unibz.it/serendipity/?q=my_endpoint/user/login.json";
+        private static final String BASE_URL = "https://sf.inf.unibz.it/serendipity/my_endpoint/user/login";
         private final AsyncHttpClient client = new AsyncHttpClient();
 
 //        private static AsyncHttpClient client = new AsyncHttpClient();

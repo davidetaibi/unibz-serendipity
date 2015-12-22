@@ -49,8 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private class addUserTask extends AsyncTask<String, Void, Integer>{
         protected Integer doInBackground(String... params){
-//            String session_name=params[0];
-//            String session_id=params[1];
+
             String name = params[0];
             String surname = params[1];
             String username = params[2];
@@ -69,13 +68,14 @@ public class RegisterActivity extends AppCompatActivity {
 
             try {
 
-                //EditText textCity = (EditText) findViewById(R.id.editCity);
-                //EditText textPS = (EditText) findViewById(R.id.editPS);
-                //EditText textPass = (EditText) findViewById(R.id.editPass);
-
                 List<NameValuePair> nameValuePairs  =   new ArrayList<NameValuePair>();
+                //nameValuePairs.add( new BasicNameValuePair("username@, name));
+                //nameValuePairs.add(new BasicNameValuePair("surname", surname));
                 nameValuePairs.add( new BasicNameValuePair("name", username));
+                //nameValuePairs.add( new BasicNameValuePair("gender", gender));
                 nameValuePairs.add( new BasicNameValuePair("mail", email));
+                //nameValuePairs.add( new BasicNameValuePair("city", city));
+                //nameValuePairs.add( new BasicNameValuePair("PS", PS));
                 nameValuePairs.add( new BasicNameValuePair("pass[pass1]", pass));
                 nameValuePairs.add( new BasicNameValuePair("pass[pass2]", pass));
                 httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
