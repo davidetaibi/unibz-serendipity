@@ -5,9 +5,45 @@
     android:layout_height="match_parent"
     tools:context=".MapsActivity">
 
+    <LinearLayout
+        android:layout_width="110dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@android:color/black"
+        android:weightSum="3"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/iconBar">
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/searchButton"
+            android:src="@drawable/ic_search"
+            android:background="@android:color/black"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/playButton"
+            android:src="@drawable/ic_play"
+            android:background="@android:color/black"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/lvButton"
+            android:src="@drawable/ic_menu"
+            android:background="@android:color/black"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_toStartOf="@id/iconBar"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
