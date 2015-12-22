@@ -65,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
 
             HttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost("http://sf.inf.unibz.it/serendipity/user/register");
+            HttpPost httpPost = new HttpPost("http://sf.inf.unibz.it/serendipity/my_endpoint/user/register");
 
             try {
 
@@ -74,14 +74,10 @@ public class RegisterActivity extends AppCompatActivity {
                 //EditText textPass = (EditText) findViewById(R.id.editPass);
 
                 List<NameValuePair> nameValuePairs  =   new ArrayList<NameValuePair>();
-                nameValuePairs.add( new BasicNameValuePair("account[username]", name));
-                nameValuePairs.add( new BasicNameValuePair("account[surname]", surname));
-                nameValuePairs.add( new BasicNameValuePair("account[username]", username));
-                nameValuePairs.add( new BasicNameValuePair("account[gender]", gender));
-                nameValuePairs.add( new BasicNameValuePair("account[email]", email));
-                nameValuePairs.add( new BasicNameValuePair("account[city]", city));
-                nameValuePairs.add( new BasicNameValuePair("account[PS]", PS));
-                nameValuePairs.add( new BasicNameValuePair("account[password]", pass));
+                nameValuePairs.add( new BasicNameValuePair("name", username));
+                nameValuePairs.add( new BasicNameValuePair("mail", email));
+                nameValuePairs.add( new BasicNameValuePair("pass[pass1]", pass));
+                nameValuePairs.add( new BasicNameValuePair("pass[pass2]", pass));
                 httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
                 //Execute HTTP post request
