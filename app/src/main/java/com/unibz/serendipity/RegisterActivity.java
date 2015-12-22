@@ -26,7 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
     }
 
-    public void saveUser_click(View view){
+    public void doReg_click(View view){
         EditText textName = (EditText) findViewById(R.id.textName);
         EditText textSurname = (EditText) findViewById(R.id.textSurname);
         EditText textUsername = (EditText) findViewById(R.id.textUsername);
@@ -65,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
 
             HttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost("https://sf.inf.unibz.it/serendipity/?q=my_endpoint/user/register");
+            HttpPost httpPost = new HttpPost("http://sf.inf.unibz.it/serendipity/user/register");
 
             try {
 
@@ -86,6 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 //Execute HTTP post request
                 HttpResponse response   =   httpClient.execute(httpPost);
+                Log.d("HTTP ", "response: " + response);
 
             }catch(Exception e){
                 Log.e("HTTP ERROR", e.toString());
