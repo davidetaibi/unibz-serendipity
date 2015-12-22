@@ -44,5 +44,6 @@
 
     <string name="no_sound">NO SOUND</string>
     <string name="around">AROUND</string>
+    <string name="likes"> LIKE(S)</string>
 
 </resources>

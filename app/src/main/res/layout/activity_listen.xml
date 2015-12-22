@@ -97,6 +97,17 @@
             android:src="@drawable/forward"
             android:background="@android:color/white"
             android:visibility="invisible"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/sound_likes_view"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@android:color/black" />
     </RelativeLayout>
 
 </LinearLayout>

@@ -37,6 +37,7 @@ public class ListenActivity extends Activity {
     private ImageButton pauseButton;
     private TextView titleView;
     private TextView authorView;
+    private TextView likesView;
     private ImageButton previousButton;
     private ImageButton nextButton;
 
@@ -74,6 +75,7 @@ public class ListenActivity extends Activity {
         nextButton = (ImageButton) findViewById(R.id.sound_next_button);
         titleView = (TextView) findViewById(R.id.sound_title_view);
         authorView = (TextView) findViewById(R.id.sound_author_view);
+        likesView = (TextView) findViewById(R.id.sound_likes_view);
 
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,6 +173,7 @@ public class ListenActivity extends Activity {
         nextButton.setVisibility(View.INVISIBLE);
         titleView.setText(getString(R.string.no_sound));
         authorView.setText(getString(R.string.around));
+        likesView.setText("");
     }
 
     private void prepareSound(int direction) {
@@ -198,6 +201,7 @@ public class ListenActivity extends Activity {
         }
 
         authorView.setText(currentSound.getCreaterName().toUpperCase());
+        likesView.setText(currentSound.getLikesCount() + getString(R.string.likes));
         try {
             mediaPlayer.setDataSource(soundUrl);
             mediaPlayer.prepareAsync();
