@@ -31,8 +31,8 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.object_array, android.R.layout.simple_spinner_item);
+        Spinner spinner = (Spinner) findViewById(R.id.textGender);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.gender, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -45,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        //getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;}
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -54,7 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
 // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings2) {
+        if (id == R.id.actionsettings2) {
             return true;}
         return super.onOptionsItemSelected(item);
     }

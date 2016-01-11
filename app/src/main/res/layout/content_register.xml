@@ -80,7 +80,7 @@
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:id="@+id/Gender"
+            android:id="@+id/textGender"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:entries="@array/gender"
