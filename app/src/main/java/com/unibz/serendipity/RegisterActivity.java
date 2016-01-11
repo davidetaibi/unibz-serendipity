@@ -31,7 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        Spinner spinner = (Spinner) findViewById(R.id.Gender);
+        Spinner spinner = (Spinner) findViewById(R.id.textGender);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.gender, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -40,12 +40,17 @@ public class RegisterActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getApplicationContext(), "Item number: " + position, Toast.LENGTH_LONG).show();
             }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Another interface callback
+            }
         });
+        spinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
     }
-   /* @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
 // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_gen, menu);
         return true;}
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -66,7 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
         EditText textName = (EditText) findViewById(R.id.textName);
         EditText textSurname = (EditText) findViewById(R.id.textSurname);
         EditText textUsername = (EditText) findViewById(R.id.textUsername);
-        Spinner textGender = (Spinner) findViewById(R.id.Gender);
+        Spinner textGender = (Spinner) findViewById(R.id.textGender);
         EditText textEmail = (EditText) findViewById(R.id.textEmail);
         EditText textCity = (EditText) findViewById(R.id.textCity);
         EditText textPS = (EditText) findViewById(R.id.textPS);
