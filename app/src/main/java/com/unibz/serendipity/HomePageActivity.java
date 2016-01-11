@@ -88,8 +88,8 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_WRITE_EXTERNAL);
         } else {
-            SoundList soundList = new SoundList(this);
-            soundList.download();
+            new SoundList(this);
+            SoundList.download();
         }
     }
 

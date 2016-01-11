@@ -33,7 +33,7 @@ public class SoundList {
         this.context = context;
     }
 
-    public void download() {
+    public static void download() {
         Log.d(LOG_TAG, "Download initialized");
         new DownloadAsyncTask(context, new DownloadHandler()).execute(LIST_URL, FILE_NAME);
     }

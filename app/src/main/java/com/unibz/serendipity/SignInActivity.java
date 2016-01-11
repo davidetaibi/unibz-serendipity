@@ -1,16 +1,23 @@
 package com.unibz.serendipity;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 
+import com.unibz.serendipity.utilities.SoundList;
+
 import org.json.JSONObject;
+
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.CookieStore;
+import java.net.HttpCookie;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.client.HttpClient;
@@ -41,7 +48,7 @@ public class SignInActivity extends AppCompatActivity {
             HttpClient httpclient = new DefaultHttpClient();
 
             //set the remote endpoint URL
-            HttpPost httppost = new HttpPost("https://sf.inf.unibz.it/serendipity/?q=my_endpoint/user/login.json");
+            HttpPost httppost = new HttpPost("http://sf.inf.unibz.it/serendipity/my_endpoint/user/login");
 
 
             try {
@@ -64,10 +71,14 @@ public class SignInActivity extends AppCompatActivity {
                 session_name=jsonObject.getString("session_name");
                 session_id=jsonObject.getString("sessid");
 
+                Log.d("SIGNIN_TEST", "ID: " + session_id);
+                Log.d("SIGNIN_TEST", "NAME: " + session_name);
+
                 return 0;
 
             }catch (Exception e) {
-                Log.v("Error adding article", e.getMessage());
+                Log.e("SIGNIN_TEST", e.getMessage());
+                e.printStackTrace();
             }
 
             return 0;
@@ -75,6 +86,28 @@ public class SignInActivity extends AppCompatActivity {
 
 
         protected void onPostExecute(Integer result) {
+            CookieManager manager = (CookieManager) CookieHandler.getDefault();
+            if (manager != null) {
+                Log.d("SIGNIN_COOKIE", "manger not null");
+                CookieStore mCookieStore = manager.getCookieStore();
+
+                try {
+                    HttpCookie cookie = new HttpCookie(session_name, session_id);
+                    cookie.setVersion(0);
+                    cookie.setDomain("sf.inf.unibz.it");
+                    cookie.setPath("/");
+                    mCookieStore.add(new URI("http://sf.inf.unibz.it/"), cookie);
+                    cookie = new HttpCookie("has_js", "1");
+                    mCookieStore.add(new URI("http://sf.inf.unibz.it/"), cookie);
+
+                    Log.d("SIGNIN_COOKIE", "cookies added:");
+                    Log.d("SIGNIN_COOKIE", String.valueOf(manager.getCookieStore().getURIs().get(0)));
+
+                    SoundList.download();
+                } catch (URISyntaxException e) {
+                    e.printStackTrace();
+                }
+            }
 
             //create an intent to start the ListActivity
             Intent intent = new Intent(SignInActivity.this, MapsActivity.class);
@@ -89,7 +122,7 @@ public class SignInActivity extends AppCompatActivity {
 
     //click listener for doLogin button
 //    public void doLoginButton_click(View view){
-        public void doSignIn_click(View view) {
+    public void doSignIn_click(View view) {
         //get the UI elements for username and password
         EditText username= (EditText) findViewById(R.id.editUsername);
         EditText password= (EditText) findViewById(R.id.editPassword);

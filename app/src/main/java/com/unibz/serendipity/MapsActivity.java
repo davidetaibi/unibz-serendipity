@@ -8,9 +8,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -21,9 +19,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.unibz.serendipity.utilities.GPSTracker;
 import com.unibz.serendipity.utilities.SoundList;
-
-import java.util.Collections;
-import java.util.Comparator;
 
 public class MapsActivity extends AppCompatActivity {
     private final String LOG_TAG = "MAPS_ACTIVITY";
