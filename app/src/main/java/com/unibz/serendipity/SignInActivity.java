@@ -41,7 +41,7 @@ public class SignInActivity extends AppCompatActivity {
             HttpClient httpclient = new DefaultHttpClient();
 
             //set the remote endpoint URL
-            HttpPost httppost = new HttpPost("https://sf.inf.unibz.it/serendipity/?q=my_endpoint/user/login.json");
+            HttpPost httppost = new HttpPost("http://sf.inf.unibz.it/serendipity/my_endpoint/user/login");
 
 
             try {
