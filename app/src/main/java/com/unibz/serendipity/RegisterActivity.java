@@ -31,8 +31,8 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.object_array, android.R.layout.simple_spinner_item);
+        Spinner spinner = (Spinner) findViewById(R.id.Gender);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.gender, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -42,7 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
-    @Override
+   /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -57,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
         if (id == R.id.action_settings2) {
             return true;}
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
 
 
@@ -66,7 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
         EditText textName = (EditText) findViewById(R.id.textName);
         EditText textSurname = (EditText) findViewById(R.id.textSurname);
         EditText textUsername = (EditText) findViewById(R.id.textUsername);
-        EditText textGender = (EditText) findViewById(R.id.textGender);
+        Spinner textGender = (Spinner) findViewById(R.id.Gender);
         EditText textEmail = (EditText) findViewById(R.id.textEmail);
         EditText textCity = (EditText) findViewById(R.id.textCity);
         EditText textPS = (EditText) findViewById(R.id.textPS);
@@ -75,7 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
         String firstname=textName.getText().toString().trim();
         String surname=textSurname.getText().toString().trim();
         String username=textUsername.getText().toString().trim();
-        String gender=textGender.getText().toString().trim();
+        String gender=textGender.getPrompt().toString();
         String email=textEmail.getText().toString().trim();
         String city=textCity.getText().toString().trim();
         String PS=textPS.getText().toString().trim();
