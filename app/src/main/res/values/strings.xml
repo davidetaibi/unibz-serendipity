@@ -45,5 +45,8 @@
     <string name="no_sound">NO SOUND</string>
     <string name="around">AROUND</string>
     <string name="likes"> LIKE(S)</string>
+    <string name="share">Share</string>
+    
+    <string name="facebook_app_id">943613822373545</string>
 
 </resources>
