@@ -67,7 +67,7 @@ public class SignInActivity extends AppCompatActivity {
             HttpClient httpclient = new DefaultHttpClient();
 
             //set the remote endpoint URL
-            HttpPost httppost = new HttpPost("https://sf.inf.unibz.it/serendipity/?q=my_endpoint/user/login.json");
+            HttpPost httppost = new HttpPost("http://sf.inf.unibz.it/serendipity/my_endpoint/user/login");
 
 
             try {
@@ -109,6 +109,7 @@ public class SignInActivity extends AppCompatActivity {
             intent.putExtra("SESSION_NAME", session_name);
             //start the ListActivity
             startActivity(intent);
+            finish();
         }
     }
 
@@ -127,6 +128,12 @@ public class SignInActivity extends AppCompatActivity {
         } catch (Exception e) { e.printStackTrace(); }
 
         new LoginProcess().execute(json);
+    }
+
+    public void openReg(View view) {
+        Intent i = new Intent(this, RegisterActivity.class);
+        startActivity(i);
+        finish();
     }
 
 
