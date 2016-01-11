@@ -83,6 +83,7 @@ public class SignInActivity extends AppCompatActivity {
             intent.putExtra("SESSION_NAME", session_name);
             //start the ListActivity
             startActivity(intent);
+            finish();
         }
     }
 
@@ -101,6 +102,12 @@ public class SignInActivity extends AppCompatActivity {
         } catch (Exception e) { e.printStackTrace(); }
 
         new LoginProcess().execute(json);
+    }
+
+    public void openReg(View view) {
+        Intent i = new Intent(this, RegisterActivity.class);
+        startActivity(i);
+        finish();
     }
 
 
