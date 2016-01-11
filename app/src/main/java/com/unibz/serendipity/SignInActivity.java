@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import org.json.JSONObject;
@@ -21,16 +22,41 @@ import cz.msebera.android.httpclient.message.BasicHeader;
 import cz.msebera.android.httpclient.protocol.HTTP;
 import cz.msebera.android.httpclient.util.EntityUtils;
 
+ import com.facebook.FacebookCallback;
+
+import com.facebook.login.LoginResult;
+
 public class SignInActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+        Button regButton= (Button) findViewById(R.id.regButton);
+        regButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v.getId() == R.id.regButton) {
+                    Intent intent = new Intent(SignInActivity.this, RegisterActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                return;
+            }
+
+        });
+
+
+
+
+
     }
 
 
     public String session_name;
     public String session_id;
+
+
 
 
     //background task to login into Drupal
@@ -117,7 +143,6 @@ public class SignInActivity extends AppCompatActivity {
 //        getMenuInflater().inflate(R.menu.login, menu);
 //        return true;
 //    }
-
 
 
 }

@@ -4,9 +4,10 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.IntentFilter; 
 import android.location.Location;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -14,6 +15,10 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.FacebookSdk;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareButton;
 
 import com.unibz.serendipity.utilities.GPSTracker;
 import com.unibz.serendipity.utilities.SoundList;
@@ -44,7 +49,9 @@ public class ListenActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_listen);
+
 
         currentSound = null;
         prepared = false;
@@ -76,6 +83,7 @@ public class ListenActivity extends Activity {
         titleView = (TextView) findViewById(R.id.sound_title_view);
         authorView = (TextView) findViewById(R.id.sound_author_view);
         likesView = (TextView) findViewById(R.id.sound_likes_view);
+
 
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,6 +121,16 @@ public class ListenActivity extends Activity {
         };
 
         loadLastKnown();
+
+        String shareText = "Hey guys, I'm currently listening to the sound of "+currentSound.getTitle()+"! Check out Serendipity!";
+        ShareLinkContent content = new ShareLinkContent.Builder()
+                .setContentTitle("Serendipity")
+                .setContentDescription(shareText)
+                .setContentUrl(Uri.parse("http://sf.inf.unibz.it/sf2015/serendipity.html"))
+                .setImageUrl(Uri.parse("http://sf.inf.unibz.it/serendipity/sites/default/files/serendipity%20logo.jpg"))
+                .build();
+        ShareButton shareButton = (ShareButton)findViewById(R.id.fb_share_button);
+        shareButton.setShareContent(content);
     }
 
     private void loadLastKnown() {
@@ -123,8 +141,6 @@ public class ListenActivity extends Activity {
     }
 
     public void locationChanged(Location location) {
-        //Toast.makeText(this, "LocationChanged", Toast.LENGTH_LONG).show();
-        //Log.d(LOG_TAG, "Location changed: lat: " + location.getLatitude() + "  long: " + location.getLongitude());
 
         reachableSoundList.clear();
         for (int i = 0; i < SoundList.soundList.size(); i++) {
@@ -140,11 +156,6 @@ public class ListenActivity extends Activity {
                 }
             });
         }
-
-        /*for (Sound sound : reachableSoundList) {
-            Log.d(LOG_TAG, sound.getDistance() + "  " + sound.getTitle());
-        }*/
-
         updatePlayer();
     }
 
