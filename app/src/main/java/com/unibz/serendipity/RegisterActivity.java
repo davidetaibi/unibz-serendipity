@@ -75,7 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
         String firstname=textName.getText().toString().trim();
         String surname=textSurname.getText().toString().trim();
         String username=textUsername.getText().toString().trim();
-        String gender=textGender.getPrompt().toString();
+        String gender=textGender.getPrompt().toString().trim();
         String email=textEmail.getText().toString().trim();
         String city=textCity.getText().toString().trim();
         String PS=textPS.getText().toString().trim();

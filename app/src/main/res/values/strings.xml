@@ -57,7 +57,7 @@
     <string name="city">City</string>
     <string name="studies">Profession/Studies</string>
 
-    <string name="action_settings2">Settings</string>
+    <string name="actionsettings2">Settings</string>
     <string name="select">Select Gender</string>
     <string-array name="gender">
     <item>Male</item>
