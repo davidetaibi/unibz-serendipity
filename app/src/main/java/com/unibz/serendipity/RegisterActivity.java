@@ -2,10 +2,17 @@ package com.unibz.serendipity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,33 +31,67 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        Spinner spinner = (Spinner) findViewById(R.id.textGender);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.gender, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(), "Item number: " + position, Toast.LENGTH_LONG).show();
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Another interface callback
+            }
+        });
+        spinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
     }
+    /*@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+// Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_gen, menu);
+        return true;}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+// Handle action bar item clicks here. The action bar will
+// automatically handle clicks on the Home/Up button, so long
+// as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+//noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings2) {
+            return true;}
+        return super.onOptionsItemSelected(item);
+    }*/
+
+
+
 
     public void doReg_click(View view){
         EditText textName = (EditText) findViewById(R.id.textName);
         EditText textSurname = (EditText) findViewById(R.id.textSurname);
         EditText textUsername = (EditText) findViewById(R.id.textUsername);
-        EditText textGender = (EditText) findViewById(R.id.textGender);
+        Spinner textGender = (Spinner) findViewById(R.id.textGender);
         EditText textEmail = (EditText) findViewById(R.id.textEmail);
         EditText textCity = (EditText) findViewById(R.id.textCity);
         EditText textPS = (EditText) findViewById(R.id.textPS);
         EditText textPassword = (EditText) findViewById(R.id.textPass);
 
-        String name=textName.getText().toString().trim();
+        String firstname=textName.getText().toString().trim();
         String surname=textSurname.getText().toString().trim();
         String username=textUsername.getText().toString().trim();
-        String gender=textGender.getText().toString().trim();
+        String gender=textGender.getPrompt().toString().trim();
         String email=textEmail.getText().toString().trim();
         String city=textCity.getText().toString().trim();
         String PS=textPS.getText().toString().trim();
         String pass=textPassword.getText().toString().trim();
-        new addUserTask().execute(name, surname, username, gender, email, city, PS, pass);
+        new addUserTask().execute(firstname, surname, username, gender, email, city, PS, pass);
     }
 
     private class addUserTask extends AsyncTask<String, Void, Integer>{
         protected Integer doInBackground(String... params){
 
-            String name = params[0];
+            String firstname = params[0];
             String surname = params[1];
             String username = params[2];
             String gender = params[3];
@@ -69,7 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
             try {
 
                 List<NameValuePair> nameValuePairs  =   new ArrayList<NameValuePair>();
-                //nameValuePairs.add( new BasicNameValuePair("username@, name));
+                //nameValuePairs.add( new BasicNameValuePair("firstname", name));
                 //nameValuePairs.add(new BasicNameValuePair("surname", surname));
                 nameValuePairs.add( new BasicNameValuePair("name", username));
                 //nameValuePairs.add( new BasicNameValuePair("gender", gender));
@@ -88,7 +129,7 @@ public class RegisterActivity extends AppCompatActivity {
                 Log.e("HTTP ERROR", e.toString());
             }
 
-//                StringEntity se = new StringEntity("{\"name\":\""+name+"\",\"type\":\"text\",\"email\":\""+email+"\",\"type\":\"email");
+//                StringEntity se = new StringEntity("{\"firstname\":\""+firstname+"\",\"type\":\"text\",\"email\":\""+email+"\",\"type\":\"email");
 //                se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 //                httpPost.setEntity(se);
 

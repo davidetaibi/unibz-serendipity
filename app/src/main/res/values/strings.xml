@@ -35,9 +35,10 @@
     <string name="button_cities">Cities</string>
     <string name="button_contacts">Contacts</string>
 
-    <string name="uploadfromsite">Please <a href="http://sf.inf.unibz.it/serendipity/">Upload your song from the website</a></string>
+    <string name="uploadfromsite">Please <a href="http://sf.inf.unibz.it/serendipity/my_endpoint/users/add/sound">Upload your song from the website</a></string>
     <string name="register">New User <a href="RegisterActivity">Register Here</a></string>
-    <string name="contacts">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut tempus neque, non aliquam velit. Morbi eget molestie purus. <p>Aenean auctor, justo non aliquam viverra, tortor turpis porttitor neque, quis vulputate augue enim vitae ligula.</p></string>
+    <string name="contactname">Maria Teresa Scarabello</string>
+    <string name="contactinfo"><a href="mailto:MariaTeresa.Scarabello@design-art.unibz.it?subject=InformationRequested&body=Here's more information. http://sf.inf.unibz.it/sf2015/serendipity.html">MariaTeresa.Scarabello@design-art.unibz.it</a></string>
     <string name="rule1">1. REACH YOUR SPOT. Where do you go when angry, to take a stroll and steam off a bit? Where do you daydream when in love or simply serene? Choose your place in the city, the one you find poetic and worth it. Think about how to express the feelings this spot arises inside you and when exactly during the day you like it the most!</string>
     <string name="rule2">2. RECORD ITS SOUND. Take your phone/recorder/zoom and go out to record the ambient sound which will be the basis of your track! Explore the surroundings, daytime, nighttime, be brave! Record the moment you feel right, no matter if a crowd is shouting, or the city is quiet. Pick the best and keeo it, listen to it and get inspiration.</string>
     <string name="rule3">3. ENRICH IT WITH YOUR MUSIC. Grab your craziest friend(otherwise find a brand-new one) and start mixing stuff on a music program to add soul to your basic ambient recording and create your tune! Try to convey your sensation in the track, personalization is the way.</string>
@@ -48,6 +49,9 @@
     <string name="no_sound">NO SOUND</string>
     <string name="around">AROUND</string>
     <string name="likes"> LIKE(S)</string>
+    <string name="share">Share</string>
+    
+    <string name="facebook_app_id">943613822373545</string>
 
     <string name="username">Username</string>
     <string name="password">Password</string>
@@ -57,5 +61,10 @@
     <string name="city">City</string>
     <string name="studies">Profession/Studies</string>
 
+    <string name="action_settings2">Settings</string>
+    <string name="select">Select Gender</string>
+    <string-array name="gender">
+    <item>Male</item>
+    <item>Female</item></string-array>
 
 </resources>
