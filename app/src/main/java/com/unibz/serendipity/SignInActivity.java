@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.unibz.serendipity.utilities.LikeAsyncTask;
 import com.unibz.serendipity.utilities.SoundList;
 
 import org.json.JSONObject;
@@ -38,6 +40,7 @@ public class SignInActivity extends AppCompatActivity {
 
     public String session_name;
     public String session_id;
+    public String token;
 
 
     //background task to login into Drupal
@@ -70,9 +73,11 @@ public class SignInActivity extends AppCompatActivity {
                 //read the session information
                 session_name=jsonObject.getString("session_name");
                 session_id=jsonObject.getString("sessid");
+                token=jsonObject.getString("token");
 
                 Log.d("SIGNIN_TEST", "ID: " + session_id);
                 Log.d("SIGNIN_TEST", "NAME: " + session_name);
+                Log.d("SIGNIN_TEST", "TOKEN: " + token);
 
                 return 0;
 
@@ -81,42 +86,58 @@ public class SignInActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            return 0;
+            return 1;
         }
 
 
         protected void onPostExecute(Integer result) {
-            CookieManager manager = (CookieManager) CookieHandler.getDefault();
-            if (manager != null) {
-                Log.d("SIGNIN_COOKIE", "manger not null");
-                CookieStore mCookieStore = manager.getCookieStore();
+            if (result == 0) {
+                CookieManager manager = (CookieManager) CookieHandler.getDefault();
+                if (manager != null) {
+                    Log.d("SIGNIN_COOKIE", "login successful");
+                    Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_LONG).show();
+                    CookieStore mCookieStore = manager.getCookieStore();
 
-                try {
-                    HttpCookie cookie = new HttpCookie(session_name, session_id);
-                    cookie.setVersion(0);
-                    cookie.setDomain("sf.inf.unibz.it");
-                    cookie.setPath("/");
-                    mCookieStore.add(new URI("http://sf.inf.unibz.it/"), cookie);
-                    cookie = new HttpCookie("has_js", "1");
-                    mCookieStore.add(new URI("http://sf.inf.unibz.it/"), cookie);
+                    try {
+                        HttpCookie cookie = new HttpCookie(session_name, session_id);
+                        cookie.setVersion(0);
+                        cookie.setDomain("sf.inf.unibz.it");
+                        cookie.setPath("/");
+                        mCookieStore.add(new URI("http://sf.inf.unibz.it/"), cookie);
 
-                    Log.d("SIGNIN_COOKIE", "cookies added:");
-                    Log.d("SIGNIN_COOKIE", String.valueOf(manager.getCookieStore().getURIs().get(0)));
+                        cookie = new HttpCookie("X-CSRF-Token", token);
+                        cookie.setVersion(0);
+                        cookie.setDomain("sf.inf.unibz.it");
+                        cookie.setPath("/");
+                        mCookieStore.add(new URI("http://sf.inf.unibz.it/"), cookie);
 
-                    SoundList.download();
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
+                        cookie = new HttpCookie("has_js", "1");
+                        mCookieStore.add(new URI("http://sf.inf.unibz.it/"), cookie);
+
+                        Log.d("SIGNIN_COOKIE", "cookies added:");
+                        Log.d("SIGNIN_COOKIE", String.valueOf(manager.getCookieStore().getURIs().get(0)));
+
+                        SoundList.download();
+
+                        //create an intent to start the ListActivity
+                        Intent intent = new Intent(SignInActivity.this, MapsActivity.class);
+                        //pass the session_id and session_name to ListActivity
+                        intent.putExtra("SESSION_ID", session_id);
+                        intent.putExtra("SESSION_NAME", session_name);
+                        //start the ListActivity
+                        startActivity(intent);
+                        finish();
+                    } catch (URISyntaxException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Log.d("SIGNIN_COOKIE", "login FAILED: manager null");
+                    Toast.makeText(getApplicationContext(), "Login FAILED", Toast.LENGTH_LONG).show();
                 }
+            } else {
+                Log.d("SIGNIN_COOKIE", "login FAILED");
+                Toast.makeText(getApplicationContext(), "Login FAILED", Toast.LENGTH_LONG).show();
             }
-
-            //create an intent to start the ListActivity
-            Intent intent = new Intent(SignInActivity.this, MapsActivity.class);
-            //pass the session_id and session_name to ListActivity
-            intent.putExtra("SESSION_ID", session_id);
-            intent.putExtra("SESSION_NAME", session_name);
-            //start the ListActivity
-            startActivity(intent);
-            finish();
         }
     }
 
@@ -130,8 +151,8 @@ public class SignInActivity extends AppCompatActivity {
         JSONObject json = new JSONObject();
         try {
             //extract the username and password from UI elements and create a JSON object
-            json.put("username", username.getText().toString().trim());
-            json.put("password", password.getText().toString().trim());
+            json.put("username", username.getText().toString());
+            json.put("password", password.getText().toString());
         } catch (Exception e) { e.printStackTrace(); }
 
         new LoginProcess().execute(json);
