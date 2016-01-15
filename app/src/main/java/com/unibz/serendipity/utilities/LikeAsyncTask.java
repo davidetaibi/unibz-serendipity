@@ -114,7 +114,7 @@ public class LikeAsyncTask extends AsyncTask<Integer, Void, Boolean> {
                 SoundList.download();
             } else {
                 Log.d(LOG_TAG, "Like ERROR");
-                Toast.makeText(context, "Error liking! try again!", Toast.LENGTH_LONG);
+                Toast.makeText(context, "Error liking! try again!", Toast.LENGTH_LONG).show();
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();

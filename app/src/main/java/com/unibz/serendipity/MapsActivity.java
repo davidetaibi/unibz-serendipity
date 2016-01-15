@@ -54,9 +54,11 @@ public class MapsActivity extends AppCompatActivity {
         locationChangeReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                Location newLocation = intent.getParcelableExtra(GPSTracker.EXTRA);
-                if (newLocation != null) {
-                    locationChanged(newLocation);
+                if (intent.getAction().equals(GPSTracker.ACTION)) {
+                    Location newLocation = intent.getParcelableExtra(GPSTracker.EXTRA);
+                    if (newLocation != null) {
+                        locationChanged(newLocation);
+                    }
                 }
             }
         };
