@@ -49,7 +49,7 @@ public class SignInActivity extends AppCompatActivity {
     public String session_id;
     public String token;
 
-    
+
 
     //background task to login into Drupal
     private class LoginProcess extends AsyncTask<JSONObject, Integer, Integer> {
