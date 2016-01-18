@@ -78,29 +78,18 @@
             android:textColor="#ffffff"
             android:clickable="true"
             android:layout_marginStart="40dp" />-->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Gender"
-            android:id="@+id/gender"
-            android:layout_marginStart="45dp"
-            android:layout_marginTop="5dp"
-            android:fontFamily="Avenir Medium"
-            android:textColor="#ffffff"/>
 
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:id="@+id/textGender"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:entries="@array/gender"
             android:prompt="@string/select"
             android:fontFamily="Avenir Medium"
             android:textColor="#ffffff"
             android:layout_marginTop="5dp"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_marginStart="40dp" />
 
         <EditText
             android:layout_width="wrap_content"
