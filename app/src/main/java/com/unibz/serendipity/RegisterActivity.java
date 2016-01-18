@@ -1,7 +1,10 @@
 package com.unibz.serendipity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -35,7 +38,6 @@ public class RegisterActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.gender, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -72,10 +74,16 @@ public class RegisterActivity extends AppCompatActivity {
         String city=textCity.getText().toString().trim();
         String PS=textPS.getText().toString().trim();
         String pass=textPassword.getText().toString().trim();
-        new addUserTask().execute(firstname, surname, username, gender, email, city, PS, pass);
+        (new addUserTask(getApplicationContext())).execute(firstname, surname, username, gender, email, city, PS, pass);
     }
 
     private class addUserTask extends AsyncTask<String, Void, Integer>{
+        private Context context;
+
+        public addUserTask(Context context) {
+            this.context = context;
+        }
+
         protected Integer doInBackground(String... params){
 
             String firstname = params[0];
@@ -112,8 +120,15 @@ public class RegisterActivity extends AppCompatActivity {
                 HttpResponse response   =   httpClient.execute(httpPost);
                 Log.d("HTTP ", "response: " + response);
 
+                if (response.getStatusLine().getStatusCode() == 200) {
+                    return 0;
+                } else {
+                    return -1;
+                }
+
             }catch(Exception e){
                 Log.e("HTTP ERROR", e.toString());
+                return -1;
             }
 
 //                StringEntity se = new StringEntity("{\"firstname\":\""+firstname+"\",\"type\":\"text\",\"email\":\""+email+"\",\"type\":\"email");
@@ -138,7 +153,20 @@ public class RegisterActivity extends AppCompatActivity {
 //            }catch (Exception e){
 //                Log.v("Error Registering User:", e.getMessage());
 //            }
-            return new Integer(0);
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            super.onPostExecute(integer);
+
+            if (integer >= 0) {
+                Toast.makeText(context, "Thanks for registering! Login and get going!", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(context, "ERROR! Please retry!", Toast.LENGTH_LONG).show();
+            }
         }
     }
 }
