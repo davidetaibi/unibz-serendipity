@@ -1,0 +1,34 @@
+INTRO:
+Client came up with the idea, Serendipity: where a user can go to a specific place and listen to a sound that reminds them
+of a special memory. 
+A user can be notified when they are within __ that they are close to a certain place with a sound. 
+We then decided to build her an android application which would perform this task.
+BODY:
+The first thing we did was:
+Client-Server
+
+With the sign in and Registration, we realized that we would need some type of content management system to keep track
+of the different users, session information, among other things. So the task here was to figure out whether we were going
+to create our own web service or use an existing one. We decided to go with the challenge of using Drupal and its array of web 
+services. 
+We used RESTful services from Drupal to allow us to perform the login as well as other CRUD options which are mapped to
+POST, GET, PUT and DELETE requests. With these web services, we can perform the login and  registration, and users can 
+upload their sounds and CRUD.
+
+We use GPS to track the location of a user and also calculate the distance the user is from the nearest sound and when the 
+user is within a certain radius they receive a notification (200m) and when they're at 10m they have the option to listen 
+to the sound.
+The user can only listen to the sound of that particular area.(Example). So this way we keep the objective the client 
+gave us.
+
+The Map supports the user in finding locations of sounds etc. This was realized using Google Maps API
+
+Create async tasks for communication with server: Like feature, download
+
+
+CONCLUSION:
+This was a big learning experience for us because we were novices in Drupal at the beginning but we learned to use it to 
+perform the clients wishes.
+From this course we learned, through Agile methodology, how to produce a business product and work together as a group,
+and build our communication skills both amongst ourselves and with our client.
+We've been able to...
