@@ -1,22 +1,22 @@
 package com.unibz.serendipity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.os.Looper;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
-import com.google.android.gms.games.internal.GamesContract;
-
-import com.loopj.android.http.*;
-import org.json.JSONObject;
-
-import java.net.CookieStore;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,14 +25,8 @@ import cz.msebera.android.httpclient.NameValuePair;
 import cz.msebera.android.httpclient.client.HttpClient;
 import cz.msebera.android.httpclient.client.entity.UrlEncodedFormEntity;
 import cz.msebera.android.httpclient.client.methods.HttpPost;
-import cz.msebera.android.httpclient.entity.StringEntity;
-import cz.msebera.android.httpclient.impl.client.BasicCookieStore;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
-import cz.msebera.android.httpclient.impl.cookie.BasicClientCookie;
-import cz.msebera.android.httpclient.message.BasicHeader;
 import cz.msebera.android.httpclient.message.BasicNameValuePair;
-import cz.msebera.android.httpclient.protocol.BasicHttpContext;
-import cz.msebera.android.httpclient.protocol.HTTP;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -40,48 +34,61 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+        Spinner spinner = (Spinner) findViewById(R.id.textGender);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.gender, R.layout.my_spinner_text);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(), "Item number: " + position, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
-
     }
 
-    public void saveUser_click(View view){
+
+
+
+
+    public void doReg_click(View view){
         EditText textName = (EditText) findViewById(R.id.textName);
         EditText textSurname = (EditText) findViewById(R.id.textSurname);
-        EditText textNickname = (EditText) findViewById(R.id.textNickname);
-        EditText textGender = (EditText) findViewById(R.id.textGender);
+        EditText textUsername = (EditText) findViewById(R.id.textUsername);
+        Spinner textGender = (Spinner) findViewById(R.id.textGender);
         EditText textEmail = (EditText) findViewById(R.id.textEmail);
         EditText textCity = (EditText) findViewById(R.id.textCity);
         EditText textPS = (EditText) findViewById(R.id.textPS);
         EditText textPassword = (EditText) findViewById(R.id.textPass);
 
-        String name=textName.getText().toString().trim();
+        String firstname=textName.getText().toString().trim();
         String surname=textSurname.getText().toString().trim();
-        String nickname=textNickname.getText().toString().trim();
-        String gender=textGender.getText().toString().trim();
+        String username=textUsername.getText().toString().trim();
+        String gender=textGender.getPrompt().toString().trim();
         String email=textEmail.getText().toString().trim();
         String city=textCity.getText().toString().trim();
         String PS=textPS.getText().toString().trim();
         String pass=textPassword.getText().toString().trim();
-        new addUserTask().execute(name, nickname, email);
+        (new addUserTask(getApplicationContext())).execute(firstname, surname, username, gender, email, city, PS, pass);
     }
 
     private class addUserTask extends AsyncTask<String, Void, Integer>{
+        private Context context;
+
+        public addUserTask(Context context) {
+            this.context = context;
+        }
+
         protected Integer doInBackground(String... params){
-//            String session_name=params[0];
-//            String session_id=params[1];
-            String name = params[0];
+
+            String firstname = params[0];
             String surname = params[1];
-            String nickname = params[2];
+            String username = params[2];
             String gender = params[3];
             String email = params[4];
             String city = params[5];
@@ -93,38 +100,43 @@ public class RegisterActivity extends AppCompatActivity {
             }
 
             HttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost("https://sf.inf.unibz.it/serendipity/?q=my_endpoint/user/register");
+            HttpPost httpPost = new HttpPost("http://sf.inf.unibz.it/serendipity/my_endpoint/user/register");
 
             try {
 
-                //EditText textCity = (EditText) findViewById(R.id.editCity);
-                //EditText textPS = (EditText) findViewById(R.id.editPS);
-                //EditText textPass = (EditText) findViewById(R.id.editPass);
-
                 List<NameValuePair> nameValuePairs  =   new ArrayList<NameValuePair>();
-                nameValuePairs.add( new BasicNameValuePair("account[username]", name));
-                nameValuePairs.add( new BasicNameValuePair("account[surname]", surname));
-                nameValuePairs.add( new BasicNameValuePair("account[nickname]", nickname));
-                nameValuePairs.add( new BasicNameValuePair("account[gender]", gender));
-                nameValuePairs.add( new BasicNameValuePair("account[email]", email));
-                nameValuePairs.add( new BasicNameValuePair("account[city]", city));
-                nameValuePairs.add( new BasicNameValuePair("account[PS]", PS));
-                nameValuePairs.add( new BasicNameValuePair("account[password]", pass));
+                //nameValuePairs.add( new BasicNameValuePair("firstname", name));
+                //nameValuePairs.add(new BasicNameValuePair("surname", surname));
+                nameValuePairs.add( new BasicNameValuePair("name", username));
+                //nameValuePairs.add( new BasicNameValuePair("gender", gender));
+                nameValuePairs.add( new BasicNameValuePair("mail", email));
+                //nameValuePairs.add( new BasicNameValuePair("city", city));
+                //nameValuePairs.add( new BasicNameValuePair("PS", PS));
+                nameValuePairs.add( new BasicNameValuePair("pass[pass1]", pass));
+                nameValuePairs.add( new BasicNameValuePair("pass[pass2]", pass));
                 httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
                 //Execute HTTP post request
                 HttpResponse response   =   httpClient.execute(httpPost);
+                Log.d("HTTP ", "response: " + response);
+
+                if (response.getStatusLine().getStatusCode() == 200) {
+                    return 0;
+                } else {
+                    return -1;
+                }
 
             }catch(Exception e){
                 Log.e("HTTP ERROR", e.toString());
+                return -1;
             }
 
-//                StringEntity se = new StringEntity("{\"name\":\""+name+"\",\"type\":\"text\",\"email\":\""+email+"\",\"type\":\"email");
+//                StringEntity se = new StringEntity("{\"firstname\":\""+firstname+"\",\"type\":\"text\",\"email\":\""+email+"\",\"type\":\"email");
 //                se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 //                httpPost.setEntity(se);
 
 //                BasicHttpContext mHttpContext = new BasicHttpContext();
-                //CookieStore mCookieStore = new BasicCookieStore();
+            //CookieStore mCookieStore = new BasicCookieStore();
 
 //                BasicClientCookie cookie = new BasicClientCookie(session_name, session_id);
 //                cookie.setVersion(0);
@@ -141,8 +153,21 @@ public class RegisterActivity extends AppCompatActivity {
 //            }catch (Exception e){
 //                Log.v("Error Registering User:", e.getMessage());
 //            }
-            return new Integer(0);
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            super.onPostExecute(integer);
+
+            if (integer >= 0) {
+                Toast.makeText(context, "Thanks for registering! Login and get going!", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(context, "ERROR! Please retry!", Toast.LENGTH_LONG).show();
+            }
         }
     }
-    }
+}
 

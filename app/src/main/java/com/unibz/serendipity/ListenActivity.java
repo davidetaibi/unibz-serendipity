@@ -4,26 +4,29 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.IntentFilter; 
 import android.location.Location;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.FacebookSdk;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareButton;
+
 import com.unibz.serendipity.utilities.GPSTracker;
+import com.unibz.serendipity.utilities.LikeAsyncTask;
 import com.unibz.serendipity.utilities.SoundList;
 
 import java.io.IOException;
-import java.util.Collection;
+import java.net.CookieHandler;
+import java.net.CookieManager;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -42,13 +45,17 @@ public class ListenActivity extends Activity {
     private ImageButton pauseButton;
     private TextView titleView;
     private TextView authorView;
+    private TextView likeButton;
+    private TextView likesView;
     private ImageButton previousButton;
     private ImageButton nextButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_listen);
+
 
         currentSound = null;
         prepared = false;
@@ -79,6 +86,24 @@ public class ListenActivity extends Activity {
         nextButton = (ImageButton) findViewById(R.id.sound_next_button);
         titleView = (TextView) findViewById(R.id.sound_title_view);
         authorView = (TextView) findViewById(R.id.sound_author_view);
+        likeButton = (TextView) findViewById(R.id.sound_like_button);
+        likesView = (TextView) findViewById(R.id.sound_likes_view);
+
+        likeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (currentSound != null) {
+                    Log.d(LOG_TAG, "Like clicked");
+
+                    if (((CookieManager) CookieHandler.getDefault()).getCookieStore().getCookies().size() <= 0) {
+                        Toast.makeText(getApplicationContext(), "Login first!", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    (new LikeAsyncTask(getApplicationContext())).execute(currentSound.getId());
+                }
+            }
+        });
+
 
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,9 +133,14 @@ public class ListenActivity extends Activity {
         locationChangeReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                Location newLocation = intent.getParcelableExtra(GPSTracker.EXTRA);
-                if (newLocation != null) {
-                    locationChanged(newLocation);
+                if (intent.getAction().equals(GPSTracker.ACTION)) {
+                    Location newLocation = intent.getParcelableExtra(GPSTracker.EXTRA);
+                    if (newLocation != null) {
+                        locationChanged(newLocation);
+                    }
+                } else if (intent.getAction().equals(SoundList.ACTION)) {
+                    Log.d(LOG_TAG, "Soundlist Updated");
+                    loadLastKnown();
                 }
             }
         };
@@ -126,8 +156,6 @@ public class ListenActivity extends Activity {
     }
 
     public void locationChanged(Location location) {
-        //Toast.makeText(this, "LocationChanged", Toast.LENGTH_LONG).show();
-        //Log.d(LOG_TAG, "Location changed: lat: " + location.getLatitude() + "  long: " + location.getLongitude());
 
         reachableSoundList.clear();
         for (int i = 0; i < SoundList.soundList.size(); i++) {
@@ -143,11 +171,6 @@ public class ListenActivity extends Activity {
                 }
             });
         }
-
-        /*for (Sound sound : reachableSoundList) {
-            Log.d(LOG_TAG, sound.getDistance() + "  " + sound.getTitle());
-        }*/
-
         updatePlayer();
     }
 
@@ -176,6 +199,8 @@ public class ListenActivity extends Activity {
         nextButton.setVisibility(View.INVISIBLE);
         titleView.setText(getString(R.string.no_sound));
         authorView.setText(getString(R.string.around));
+        likesView.setText("");
+        likeButton.setVisibility(View.INVISIBLE);
     }
 
     private void prepareSound(int direction) {
@@ -188,6 +213,21 @@ public class ListenActivity extends Activity {
             clearPlayer();
             currentSound = reachableSoundList.get(currentSoundIndex + direction);
             loadSound();
+        }
+
+        ShareButton shareButton = (ShareButton) findViewById(R.id.fb_share_button);
+        if (currentSound != null) {
+            String shareText = "Hey guys, I'm currently listening to the sound of " + currentSound.getTitle() + "! Check out Serendipity!";
+            ShareLinkContent content = new ShareLinkContent.Builder()
+                    .setContentTitle("Serendipity")
+                    .setContentDescription(shareText)
+                    .setContentUrl(Uri.parse("http://sf.inf.unibz.it/sf2015/serendipity.html"))
+                    .setImageUrl(Uri.parse("http://sf.inf.unibz.it/serendipity/sites/default/files/serendipity%20logo.jpg"))
+                    .build();
+            shareButton.setShareContent(content);
+            shareButton.setVisibility(View.VISIBLE);
+        } else {
+            shareButton.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -203,6 +243,10 @@ public class ListenActivity extends Activity {
         }
 
         authorView.setText(currentSound.getCreaterName().toUpperCase());
+        likesView.setText(currentSound.getLikesCount() + getString(R.string.likes));
+        if (!currentSound.getLiked()) {
+            likeButton.setVisibility(View.VISIBLE);
+        }
         try {
             mediaPlayer.setDataSource(soundUrl);
             mediaPlayer.prepareAsync();

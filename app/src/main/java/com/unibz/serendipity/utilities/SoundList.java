@@ -1,8 +1,10 @@
 package com.unibz.serendipity.utilities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.util.Xml;
 import android.widget.Toast;
@@ -24,18 +26,24 @@ public class SoundList {
     private final static String LOG_TAG = "SOUND_LIST";
     private final static String LIST_URL = "http://sf.inf.unibz.it/serendipity/sounds";
     private final static String FILE_NAME = "all-sounds.xml";
+    public static final String ACTION = "com.unibz.serendipity.utilities.soundlist.updated";
+
+    private static LocalBroadcastManager localBroadcastManager = null;
 
     public static ArrayList<Sound> soundList = new ArrayList<Sound>();
     public static ArrayList<String> cityList = new ArrayList<String>();
     private static Context context = null;
+    private static DownloadHandler downloadHandler = null;
 
     public SoundList(Context context) {
         this.context = context;
+        localBroadcastManager = LocalBroadcastManager.getInstance(this.context);
+        downloadHandler = new DownloadHandler();
     }
 
-    public void download() {
+    public static void download() {
         Log.d(LOG_TAG, "Download initialized");
-        new DownloadAsyncTask(context, new DownloadHandler()).execute(LIST_URL, FILE_NAME);
+        new DownloadAsyncTask(context, downloadHandler).execute(LIST_URL, FILE_NAME);
     }
 
     // developer.android.com/training/basics/network-ops/xml.html#read
@@ -46,6 +54,8 @@ public class SoundList {
             soundList = parse(inputStream);
 
             Toast.makeText(context.getApplicationContext(), "Soundlist Downloaded", Toast.LENGTH_LONG).show();
+            Intent postUpdateIntent = new Intent(ACTION);
+            localBroadcastManager.sendBroadcast(postUpdateIntent);
 
             Log.d(LOG_TAG, "SoundList:");
             for (int i = 0; i < soundList.size(); i++) {

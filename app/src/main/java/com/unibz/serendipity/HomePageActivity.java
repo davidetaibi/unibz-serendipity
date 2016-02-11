@@ -8,7 +8,6 @@ import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -16,8 +15,6 @@ import android.widget.Toast;
 
 import com.unibz.serendipity.utilities.GPSTracker;
 import com.unibz.serendipity.utilities.SoundList;
-
-import java.util.List;
 
 public class HomePageActivity extends AppCompatActivity implements View.OnClickListener {
     private final String LOG_TAG = "HOME_PAGE_ACTIVITY";
@@ -91,8 +88,8 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_WRITE_EXTERNAL);
         } else {
-            SoundList soundList = new SoundList(this);
-            soundList.download();
+            new SoundList(this);
+            SoundList.download();
         }
     }
 
@@ -139,3 +136,16 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
     }
 }
+
+/*if (v.getId() == R.id.searchButton) {
+        Intent intent = new Intent(MapsActivity.this, CitiesActivity.class);
+        startActivity(intent);
+        }
+        else if (v.getId() == R.id.playButton) {
+        Intent intent = new Intent(MapsActivity.this, ListenActivity.class);
+        startActivity(intent);
+        }
+        else if (v.getId() == R.id.lvButton) {
+        Intent intent = new Intent(MapsActivity.this, HomePageActivity.class);
+        startActivity(intent);
+        }*/

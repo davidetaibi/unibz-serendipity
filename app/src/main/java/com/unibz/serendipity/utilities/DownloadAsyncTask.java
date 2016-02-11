@@ -9,9 +9,11 @@ import java.io.BufferedInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 
 /**
  * Created by fallenritemonk on 26/11/15.
@@ -22,9 +24,20 @@ public class DownloadAsyncTask extends AsyncTask<String, Void, Boolean> {
     private final Context context;
     private final Handler handler;
 
+    private CookieManager mCookieManager;
+
     public DownloadAsyncTask(Context context, Handler handler) {
         this.context = context;
         this.handler = handler;
+
+        mCookieManager = ((CookieManager) CookieHandler.getDefault());
+        if (mCookieManager == null) {
+            mCookieManager = new CookieManager();
+            CookieHandler.setDefault(mCookieManager);
+            Log.d(LOG_TAG, "cookieManager was null: " + mCookieManager);
+        } else {
+            Log.d(LOG_TAG, "cookieManager: " + mCookieManager);
+        }
     }
 
     @Override
@@ -35,9 +48,10 @@ public class DownloadAsyncTask extends AsyncTask<String, Void, Boolean> {
         URL url = null;
         InputStream inputStream = null;
         FileOutputStream outputStream = null;
+        HttpURLConnection connection = null;
         try {
             url = new URL(params[0]);
-            URLConnection connection = url.openConnection();
+            connection = (HttpURLConnection) url.openConnection();
             connection.connect();
 
             inputStream = new BufferedInputStream(url.openStream());
@@ -68,6 +82,9 @@ public class DownloadAsyncTask extends AsyncTask<String, Void, Boolean> {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+            if (connection != null) {
+                connection.disconnect();
             }
         }
         return true;

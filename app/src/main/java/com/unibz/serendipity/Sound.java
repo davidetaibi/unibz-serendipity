@@ -44,6 +44,18 @@ public class Sound {
         return createrName;
     }
 
+    public int getLikesCount() {
+        return likesCount;
+    }
+
+    public boolean getLiked() {
+        return liked;
+    }
+
+    public int getId() {
+        return id;
+    }
+
     public String getBackgroundLink() {
         return backgroundLink;
     }

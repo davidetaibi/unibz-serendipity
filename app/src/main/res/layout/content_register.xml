@@ -1,36 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--xmlns:tools="http://schemas.android.com/tools"-->
-<!--xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"-->
-<!--android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"-->
-<!--android:paddingRight="@dimen/activity_horizontal_margin"-->
-<!--android:paddingTop="@dimen/activity_vertical_margin"-->
-<!--android:paddingBottom="@dimen/activity_vertical_margin"-->
-<!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
-<!--tools:showIn="@layout/activity_sign_in" tools:context="com.unibz.serendipity.SignInActivity"-->
-
-<!--android:background="@drawable/bgimg"-->
-<!--android:clickable="true"-->
-<!--android:layout_alignParentBottom="true">-->
-
-
-<!--<ScrollView-->
-<!--android:layout_marginTop="150dp"-->
-<!--android:layout_width="wrap_content"-->
-<!--android:layout_height="wrap_content"-->
-<!--android:id="@+id/scrollView"-->
-<!--android:layout_alignParentBottom="true"-->
-<!--android:textColor="#ffffff"-->
-<!--android:fontFamily="Avenir Medium"-->
-<!--android:gravity="left">-->
-
-
-<!--android:layout_marginTop="150dp"-->
-<!--android:id="@+id/scrollView"-->
-<!--android:layout_alignParentBottom="true"-->
-<!--android:textColor="#a0a0a0"-->
-<!--android:fontFamily="Avenir Medium"-->
-<!--android:gravity="left"-->
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -45,115 +13,152 @@
     tools:context="com.unibz.serendipity.SignInActivity"
     >
 
-
-    <!--android:background="#000000"-->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
         android:fontFamily="Avenir Medium"
         android:textColor="#ffffff"
-        android:background="@drawable/bgimg"
-        android:orientation="vertical"
+        android:background="@android:color/black"
+        android:orientation="vertical" >
 
-        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/background_top"
+            android:adjustViewBounds="true"/>
+
         <EditText
-            android:layout_marginTop="300dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name"
+            android:hint="@string/name"
+            android:textColorHint="@android:color/white"
+            android:singleLine="true"
             android:id="@+id/textName"
-            android:layout_above="@+id/textView2"
             android:fontFamily="Avenir Medium"
             android:textColor="#ffffff"
-            android:clickable="true" />
+            android:clickable="true"
+            android:layout_marginStart="40dp" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Surname"
+            android:hint="@string/surename"
+            android:textColorHint="@android:color/white"
+            android:singleLine="true"
             android:id="@+id/textSurname"
             android:fontFamily="Avenir Medium"
             android:textColor="#ffffff"
-            android:clickable="true" />
+            android:clickable="true"
+            android:layout_marginStart="40dp" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nickname"
-            android:id="@+id/textNickname"
+            android:hint="@string/username"
+            android:textColorHint="@android:color/white"
+            android:singleLine="true"
+            android:id="@+id/textUsername"
             android:fontFamily="Avenir Medium"
             android:textColor="#ffffff"
-            android:clickable="true" />
+            android:clickable="true"
+            android:layout_marginStart="40dp"/>
 
-        <EditText
+
+        <!--<EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Gender"
+            android:hint="@string/name"
+            android:textColorHint="@android:color/white"
+            android:singleLine="true"
             android:id="@+id/textGender"
             android:fontFamily="Avenir Medium"
             android:textColor="#ffffff"
-            android:clickable="true" />
+            android:clickable="true"
+            android:layout_marginStart="40dp" />-->
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:id="@+id/textGender"
+            android:entries="@array/gender"
+            android:prompt="@string/select"
+            android:fontFamily="Avenir Medium"
+            android:textColor="#ffffff"
+            android:layout_marginTop="5dp"
+            android:visibility="visible"
+            android:layout_marginStart="40dp" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Email Address"
+            android:hint="@string/email"
+            android:textColorHint="@android:color/white"
+            android:singleLine="true"
+            android:inputType="textEmailAddress"
             android:id="@+id/textEmail"
             android:fontFamily="Avenir Medium"
             android:textColor="#ffffff"
-            android:clickable="true" />
+            android:clickable="true"
+            android:layout_marginStart="40dp" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="City"
+            android:hint="@string/city"
+            android:textColorHint="@android:color/white"
+            android:singleLine="true"
             android:id="@+id/textCity"
             android:fontFamily="Avenir Medium"
             android:textColor="#ffffff"
-            android:clickable="true" />
+            android:clickable="true"
+            android:layout_marginStart="40dp" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Profession/Studies"
+            android:hint="@string/studies"
+            android:textColorHint="@android:color/white"
+            android:singleLine="true"
             android:id="@+id/textPS"
             android:fontFamily="Avenir Medium"
             android:textColor="#ffffff"
-            android:clickable="true" />
+            android:clickable="true"
+            android:layout_marginStart="40dp" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Password"
+            android:hint="@string/password"
+            android:textColorHint="@android:color/white"
+            android:singleLine="true"
+            android:inputType="textPassword"
             android:id="@+id/textPass"
             android:fontFamily="Avenir Medium"
-            android:password="false"
             android:textColor="#ffffff"
-            android:clickable="true" />
+            android:clickable="true"
+            android:layout_marginStart="40dp" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginBottom="15dp"
-            android:text="Save User"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/button_register"
             android:id="@+id/saveUser"
             android:fontFamily="Avenir Medium"
             android:textColor="#000000"
             android:background="@drawable/button_template_small"
             android:onClick="doReg_click" />
 
-        <!--<ImageButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/googleplus"-->
-        <!--android:layout_alignBottom="@+id/scrollView"-->
-        <!--android:layout_alignParentEnd="true"-->
-        <!--android:layout_marginEnd="63dp"-->
-        <!--android:background="#000000"-->
-        <!--android:clickable="true"-->
-        <!--android:src="@drawable/common_signin_btn_icon_normal_light" />-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/background_bottom"
+            android:adjustViewBounds="true"/>
 
     </LinearLayout>
 </ScrollView>
